@@ -9,7 +9,8 @@ WARNS=	6
 .SUFFIXES: .calc .execline .hs .py .rb .sed
 
 HC		?=	ghc -outputdir ${.OBJDIR}
-HFLAGS		?=	-O
+HCFLAGS		?=	-O
+HLFLAGS		?=
 
 CFLAGS		+=	-I${HOME}/lib/c
 LDFLAGS		+=	-L${HOME}/lib/c
@@ -23,7 +24,7 @@ LDFLAGS		+=	-L${HOME}/lib/c
 	chmod a+x ${.TARGET}
 
 .hs:
-	${HC} ${HFLAGS} ${LDFLAGS} -o ${.TARGET} ${.IMPSRC}
+	${HC} ${HCFLAGS} ${HLFLAGS} -o ${.TARGET} ${.IMPSRC}
 
 .py:
 	cp ${.IMPSRC} ${.TARGET}
@@ -39,12 +40,9 @@ LDFLAGS		+=	-L${HOME}/lib/c
 
 .if defined(PROG_HS)
 PROG=	${PROG_HS}
-.endif
-
-.if defined(PROG_HS)
 SRCS=	${PROG}.hs
 
 ${PROG}: ${SRCS}
-	${HC} ${HFLAGS} ${LDFLAGS} -o ${.TARGET} ${.IMPSRC}
+	${HC} ${HCFLAGS} ${HLFLAGS} -o ${.TARGET} ${.IMPSRC}
 
 .endif
