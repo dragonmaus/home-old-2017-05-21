@@ -1,0 +1,8 @@
+#!/command/execlineb -S0
+backtick -n c
+{
+	echo help $@
+}
+import c
+unexport c
+vim -c $c -c only

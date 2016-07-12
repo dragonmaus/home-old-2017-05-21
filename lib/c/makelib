@@ -1,0 +1,5 @@
+#!/bin/sh -e
+main="$1"; shift
+rm -f "$main"
+ar cr "$main" ${1+"$@"}
+exec ranlib "$main"

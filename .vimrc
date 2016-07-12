@@ -1,0 +1,24 @@
+filetype plugin indent on
+set autoindent
+set background=dark
+set backupcopy=yes
+set colorcolumn=81,+1
+set directory=/var/tmp//,/tmp//
+set encoding=utf-8
+set expandtab
+set history=10000
+set ignorecase
+set laststatus=0
+set listchars=tab:>-,trail:+,extends:»,precedes:«,nbsp:_
+set ruler
+set shiftwidth=2
+set shortmess+=I
+set showcmd
+set showmatch
+set smartcase
+set softtabstop=2
+set tabpagemax^=10
+set undolevels=10000
+set viminfo='0,<0,f0,s0
+set nowrapscan
+syntax on

@@ -1,0 +1,5 @@
+#!/bin/sh -e
+main="$1"; shift
+test -e "$main".o -a "$main".c -nt "$main".o && rm -f "$main".o
+test -e "$main".o || "${0%/*}"/compile "$main".c
+exec cc -L"${0%/*}" -o"$main" "$main".o ${1+"$@"}

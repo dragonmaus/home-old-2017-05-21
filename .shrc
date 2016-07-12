@@ -1,0 +1,17 @@
+case $TERM in
+*dvtm*)
+  TERM=`echo $TERM | sed s/dvtm/xterm/g`
+  export TERM
+  ;;
+esac
+
+. $ENV.$SYSTEM
+
+for i in $ENVD/*.sh; do
+  test -x $i && . $i
+done
+unset i
+
+lsc on
+
+trap -- 'test -r $HOME/.logout && . $HOME/.logout' EXIT

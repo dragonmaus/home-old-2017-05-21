@@ -1,0 +1,2 @@
+setlocal cinwords=
+setlocal smartindent

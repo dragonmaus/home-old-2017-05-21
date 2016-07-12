@@ -1,0 +1,59 @@
+#!/command/execlineb -S0
+backtick -n PATH.new
+{
+  import PATH
+  multidefine -r -C -d : $PATH
+  {
+    PATH.first
+    PATH.rest
+  }
+  ifelse
+  {
+    test x$PATH.first = x/command
+  }
+  {
+    pipeline
+    {
+      echo -n
+      $PATH.rest
+    }
+    tr " " :
+  }
+  pipeline
+  {
+    echo -n
+    $PATH.first
+    $PATH.rest
+  }
+  tr " " :
+}
+multisubstitute
+{
+  import HOME
+  import PATH.new
+  import SHELL
+}
+unexport PATH.new
+envdir ${HOME}/.execline-env
+backtick -n PATH
+{
+  multisubstitute
+  {
+    import GOPATH
+    import PLAN9
+  }
+  pipeline
+  {
+    echo -n
+    /command
+    /opt/local/bin
+    /opt/local/sbin
+    $PATH.new
+    ${HOME}/bin
+    ${HOME}/.cabal/bin
+    ${HOME}/Library/Android/sdk/tools
+    ${HOME}/Library/Android/sdk/platform-tools
+  }
+  tr " " :
+}
+$SHELL $@

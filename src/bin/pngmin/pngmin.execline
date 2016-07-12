@@ -1,0 +1,8 @@
+#!/command/execlineb -S0
+optipng
+-o 7
+-fix
+-force
+-zm 1-9
+-strip all
+$@

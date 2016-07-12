@@ -1,0 +1,35 @@
+#!/command/execlineb -S1
+
+forx -p dir { $@ }
+import dir unexport dir
+
+foreground
+{
+  rm -f ${dir}.tar.gz{new}
+}
+
+if
+{
+  pipeline
+  {
+    find $dir -print0
+  }
+  pipeline
+  {
+    tar -cnv -f - -T - --null
+  }
+  redirfd -w 1 ${dir}.tar.gz{new}
+  gzip -9cnv
+}
+
+if
+{
+  touch -ch -r ${dir} ${dir}.tar.gz{new}
+}
+
+if
+{
+  fsync ${dir}.tar.gz{new}
+}
+
+mv -f ${dir}.tar.gz{new} ${dir}.tar.gz

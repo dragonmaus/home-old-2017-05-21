@@ -1,0 +1,18 @@
+#!/opt/local/bin/calc -sf
+
+config("display",1),;
+config("tilde",0),;
+
+prefix = list("","K","M","G","T","P","E","Z","Y");
+
+if (argv() < 2) quit "not enough arguments"
+
+for (i = 1;i < argv();++i) {
+  n = eval(argv(i));
+  p = 0;
+  while (n >= 1024 && (p + 1) < size(prefix)) {
+    n /= 1024;
+    ++p;
+  }
+  print n:prefix[p];
+}

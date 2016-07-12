@@ -1,0 +1,2 @@
+default (Integer, Rational, Double)
+let {pi, tau :: Fractional α => α;pi = tau / 2;tau = fromRational (6283185307179586476925286766559 Data.Ratio.% 1000000000000000000000000000000)}

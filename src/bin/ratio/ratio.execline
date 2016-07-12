@@ -1,0 +1,2 @@
+#!/command/execlineb -S2
+calc -p -- "printf('%r\\n', ${1} / ${2})"

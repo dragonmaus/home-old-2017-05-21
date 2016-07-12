@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+redirfd -r 0 /dev/null
+pbcopy

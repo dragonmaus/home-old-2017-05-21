@@ -1,0 +1,16 @@
+SUBDIR=	backup\
+	book\
+	cols\
+	dircp\
+	en%\
+	find-backup\
+	isatty\
+	lc\
+	ll\
+	pathsort\
+	sharball\
+	tarball\
+	un%\
+	unc
+
+.include <bsd.arch.inc.mk>

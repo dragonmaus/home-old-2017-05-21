@@ -1,0 +1,9 @@
+#!/command/execlineb -S0
+import HOME
+export ENV ${HOME}/.shrc
+export ENVD ${HOME}/.sh
+tryexec -a sh
+{
+  bash $@
+}
+sh $@

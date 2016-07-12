@@ -1,0 +1,2 @@
+#!/command/execlineb -S0
+unattr com.apple.quarantine $@
