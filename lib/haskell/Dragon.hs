@@ -91,7 +91,7 @@ solveRPN = head . foldl parse [] . tok
                  parse (𝑥:𝑦𝑠) "truncate" = (fromInteger . truncate) 𝑥 : 𝑦𝑠
                  -- 𝑓 (nullary functions)
                  parse 𝑥𝑠 "pi" = pi : 𝑥𝑠
-                 parse 𝑥𝑠 "tau" = tau : 𝑥𝑠
+                 --parse 𝑥𝑠 "tau" = tau : 𝑥𝑠
                  -- punctuation
                  parse 𝑥𝑠 "," = 𝑥𝑠
                  parse 𝑥𝑠 "." = 𝑥𝑠
