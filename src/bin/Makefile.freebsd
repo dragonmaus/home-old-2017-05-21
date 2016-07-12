@@ -1,16 +1,5 @@
-SUBDIR=	backup\
+SUBDIR+=	backup\
 	book\
-	cols\
-	dircp\
-	en%\
-	find-backup\
-	isatty\
-	lc\
-	ll\
-	pathsort\
-	sharball\
-	tarball\
-	un%\
-	unc
+	find-backup
 
 .include <bsd.arch.inc.mk>

@@ -1,58 +1,29 @@
-SUBDIR=	alipo\
+SUBDIR+=	alipo\
 	aws\
 	backup-save\
-	cdiff\
-	cgrep\
 	cm\
-	cols\
-	derpicanon\
-	derpifix\
-	derpilink\
-	derpislug\
-	derpivote\
-	dircopy\
-	dircp\
 	dns-update\
 	doss\
-	en%\
 	fsync\
-	hb\
-	isatty\
 	jsmin\
 	jsminmax\
-	lc\
-	lefix\
-	ll\
 	lpdvi\
 	mkdvi\
 	mklatex\
-	mkpatch\
 	mktex\
-	namechange\
-	pathsort\
-	pbcanon\
-	pbnull\
 	phone\
 	pi\
 	plu\
 	pngmin\
 	qr\
-	ratio\
 	rezdump\
 	rezpack\
-	shells\
-	tarball\
 	trim\
-	un%\
 	unattr\
-	unc\
 	unquarantine\
 	update-cloudflare\
 	update-freedns\
-	uricanon\
-	urinorm\
 	uriopen\
-	urisort\
 	vimhelp\
 	vitex\
 	vitex+\
