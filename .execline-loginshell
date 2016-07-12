@@ -56,4 +56,12 @@ backtick -n PATH
   }
   tr " " :
 }
+backtick -n SYSTEM
+{
+  pipeline
+  {
+    uname -s
+  }
+  tr A-Z a-z
+}
 $SHELL $@
