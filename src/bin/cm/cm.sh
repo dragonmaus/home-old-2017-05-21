@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 LC_ALL=C
 export LC_ALL

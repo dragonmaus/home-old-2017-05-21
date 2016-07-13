@@ -1,12 +1,36 @@
-#!/bin/sh
+#!/bin/sh -e
 
-test x"$arches" = x && arches="x86_64 i386"
-tmpdir=`mktemp -dt alipo-$$`
+. $HOME/lib/sh/stdlib.sh
+
+usage() (die 100 usage 'alipo [-a arch[,arch..]] file')
+
+arches=
+
+while getopts a: opt; do
+  case $opt in
+  a) arches=$arches,"$OPTARG";;
+  *) usage;;
+  esac
+done
+shift `expr $OPTIND - 1`
+
+test x"$arches" = x && arches=x86_64,i386
+
+arches=`echo $arches | tr , ' '`
+a=
+for arch in $arches; do
+  case " $a " in
+  *" $arch "*) ;;
+  *) a=$a' '$arch;;
+  esac
+done
+arches=`echo $a`
+tmpdir=`mktemp -d -t alipo-$$`
 
 for file do
   lipo "$file" -info | grep '^Architectures in the fat file: ' || continue
 
-  rm -f -r $tmpdir/arch $tmpdir/file
+  rm -fr $tmpdir/arch $tmpdir/file
   mkdir -p $tmpdir/arch
 
   files=
@@ -19,22 +43,16 @@ for file do
   done
 
   case $count in
-  0)
-    continue
-    ;;
-  1)
-    mv -f $files $tmpdir/file
-    ;;
-  *)
-    lipo $files -output $tmpdir/file -create
-    ;;
+  0) continue;;
+  1) mv -f $files $tmpdir/file;;
+  *) lipo $files -output $tmpdir/file -create;;
   esac
 
   cmp -s "$file" $tmpdir/file && rm -f $tmpdir/file && continue
-  cp -n -p "$file" "$file".orig
+  cp -np "$file" "$file".orig
   rm -f "$file"{new}
   cp -p $tmpdir/file "$file"{new}
-  touch -c -h -r "$file" "$file"{new}
+  touch -ch -r "$file" "$file"{new}
   fsync "$file"{new}
   mv -f "$file"{new} "$file"
 done

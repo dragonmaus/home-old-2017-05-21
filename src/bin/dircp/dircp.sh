@@ -1,21 +1,23 @@
 #!/bin/sh -e
 
-. "$HOME"/lib/sh/stdlib.sh
+. $HOME/lib/sh/stdlib.sh
 
-usage() (die 100 usage "dircp [-vx] source target")
+usage() (die 100 usage 'dircp [-vx] source target')
 
 v= x=
-while getopts vx o; do
-  case $o in
-  v|x) eval $o=$o;;
+while getopts vx opt; do
+  case $opt in
+  v|x) eval $opt=$opt;;
   *) usage;;
   esac
 done
-shift `expr -- $OPTIND - 1`
-test $# -eq 2 || usage
+shift `expr $OPTIND - 1`
 
-mkdir -p$v "$2"
+s=$1
+t=$2
 
-(cd "$1"; exec find -s$x . -print0) \
-| (cd "$1"; exec tar -cn$v -f - -T - --null) \
-| (cd "$2"; exec tar -xp$v -f -)
+mkdir -p$v "$t"
+
+(cd "$s"; exec f ind -s$x . -print0) \
+| (cd "$s"; exec tar -cn$v -f - -T - --null) \
+| (cd "$t"; exec tar -xp$v -f -)

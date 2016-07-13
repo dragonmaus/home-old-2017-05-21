@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 e="
--not (
+! (
   -flags -offline
   -prune
   -exec printf \033[1;31m%s\033[m\n {} ;

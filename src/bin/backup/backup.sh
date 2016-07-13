@@ -4,23 +4,22 @@ date=`env - TZ=UTC date -ju +%FT%TZ`
 host=`hostname | sed 's/\..*//'`
 
 e="
--not (
+! (
   -flags -offline
   -prune
 )
 -flags -arch
--not (
+! (
   -type d
   -prune
   -exec $0-sub {} ;
 )
 -print0"
 
-if test `id -u` -eq 0; then
-  sudo() (exec ${1+"$@"})
-else
-  sudo -v
-fi
+case `id -u` in
+0) sudo() (exec ${1+"$@"});;
+*) sudo -v;;
+esac
 
 sync
 

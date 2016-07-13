@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 e="
--not (
+! (
   -flags -offline
   -prune
 )

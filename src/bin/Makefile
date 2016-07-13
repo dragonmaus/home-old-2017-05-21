@@ -2,8 +2,8 @@
 
 SUBDIR=	cdiff\
 	cgrep\
+	color\
 	cols\
-	derpicanon\
 	derpifix\
 	derpilink\
 	derpislug\
