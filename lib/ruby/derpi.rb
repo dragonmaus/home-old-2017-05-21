@@ -61,6 +61,10 @@ module Addressable
         match = uri.path.match(/\A\/media\/.*\/mlfw(\d+)/)
         return Addressable::URI.parse("http://mylittlefacewhen.com/f/#{match[1]}") if match
 
+      # Rule 34
+      elsif uri.host.end_with?("rule34.paheal.net")
+        uri.scheme = "http" if uri.scheme == "https"
+
       # Tumblr
       elsif uri.is_tumblr?
         uri.fragment = nil if uri.fragment == "_=_"
