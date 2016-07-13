@@ -1,1 +1,2 @@
 BINGRP=	dragon
+HC?=	stack ghc -- -outputdir ${.OBJDIR}
