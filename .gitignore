@@ -15,6 +15,7 @@
 /.dropbox/
 /.gem/
 /.ghc/
+/.git-credentials
 /.gitconfig-secret
 /.indent.pro
 /.keepassx/
