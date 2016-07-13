@@ -19,6 +19,6 @@ t=$2/$t
 
 mkdir -p$v "$t"
 
-(cd "$s"; exec f ind -s$x . -print0) \
+(cd "$s"; exec find -s$x . -print0) \
 | (cd "$s"; exec tar -cn$v -f - -T - --null) \
 | (cd "$t"; exec tar -xp$v -f -)
