@@ -1,4 +1,4 @@
-HFLAGS+=	-i${HOME}/lib/haskell
+HCFLAGS+=	-i${HOME}/lib/haskell
 PROG_HS=	pathsort
 NO_MAN=
 
