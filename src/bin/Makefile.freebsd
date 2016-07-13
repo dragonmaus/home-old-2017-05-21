@@ -1,5 +1,7 @@
 SUBDIR+=	backup\
 	book\
-	find-backup
+	find-backup\
+	pbcopy\
+	pbpaste
 
 .include <bsd.arch.inc.mk>
