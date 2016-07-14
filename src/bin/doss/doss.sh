@@ -1,17 +1,16 @@
-#!/bin/sh
+#!/bin/sh -e
 
-set -e
-
-for f; do
-  t=`env TZ=UTC stat -f %Sm -t '%FT%T' "$f"`
-  for a in `xattr "$f"`; do
-    xattr -d "$a" "$f"
+for file do
+  time=`env TZ=UTC stat -f %Sm -t %FT%TZ "$file"`
+  for attr in `xattr "$file"`; do
+    xattr -d "$attr" "$file"
   done
-  rm -f "$t".png.new
-  mv -v "$f" "$t".png.new
-  fsync "$t".png.new
-  mv -fv "$t".png.new "$t".png
-  cp -npv "$t".png "$HOME"/www/screenshots/"$t".png
-  mv -nv "$t".png "$HOME"/Pictures/'Screen Shots'/"$t".png
-  open https://dragonmaus.tk/screenshots/"$t".png
+  rm -f "$time".png{new}
+  cp -p "$file" "$time".png{new}
+  rm -f "$file"
+  fsync "$time".png{new}
+  cp -p "$time".png{new} "$HOME"/Pictures/"Screen Shots"/"$time".png
+  cp -p "$time".png{new} "$HOME"/www/screenshots/"$time".png
+  rm -f "$time".png{new}
+  open https://dragonmaus.tk/screenshots/"$time".png
 done
