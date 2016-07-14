@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 for file do
   file=`echo "$file" | sed 's/^\.\///;s/\.orig$//'`
