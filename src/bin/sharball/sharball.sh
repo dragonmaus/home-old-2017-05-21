@@ -37,7 +37,7 @@ test x"$1" = x && usage
 test -e "$1" || die 111 fatal "$1: No such file or directory"
 
 test x$gzip = x && gzip() (exec cat)
-test x$verbose = xyes && show() ((tee /dev/fd/2 2>&3 | tr '\0' '\n') 3>&1 1>&2)
+test x$verbose = xyes && show() ((tee /dev/fd/2 2>&3 | tr '\0' '\n') 3>&1 1>&2) || show() (exec cat)
 
 first=yes
 for dir; do
