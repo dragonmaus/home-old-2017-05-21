@@ -17,6 +17,7 @@
 /.ghc/
 /.git-credentials
 /.gitconfig-secret
+/.gnupg/
 /.indent.pro
 /.keepassx/
 /.local/
