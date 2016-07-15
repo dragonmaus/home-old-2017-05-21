@@ -1,38 +1,38 @@
 #!/bin/sh -e
 
-die() {
-  r=$1; l=$2; shift 2
-  echo "symdate: $l: $*" 1>&2
-  exit $r
-}
+. $HOME/lib/sh/stdlib.sh
 
-a=
-f=0
-while getopts f o; do
-  case $o in
-  f) f=`expr $f + 1`; a="$a -f";;
-  *) die 100 usage 'symdate [-f] symlink...';;
+usage() (die 100 usage 'symdate [-f] symlink...')
+
+a= f=0
+while getopts f opt; do
+  case $opt in
+  f) f=`expr $f + 1`; a=$a' -f';;
+  *) usage;;
   esac
 done
-shift `expr -- $OPTIND - 1`
+shift `expr $OPTIND - 1`
 
-test $# -gt 0 || die 100 usage 'symdate [-f] symlink...'
+test $# -gt 0 || usage
 
-T=`mktemp -t symdate-$$`
-trap -- "rm -f '$T'" EXIT
+temp=`mktemp -t symdate-$$`
+trap -- "rm -f '$temp'" EXIT
 
-for l do
-  test -h "$l" || die 111 fatal "$link: Not a symbolic link"
-  t=`readlink "$l"`
-  case $t in
+for link do
+  test -h "$link" || die 111 fatal "$link: Not a symbolic link"
+
+  target=`readlink "$link"`
+  case $target in
   /*) ;;
-  *) d=`dirname "$l"`; t=$d/$t;;
+  *) dir=`dirname "$link"`; target=$dir/$target;;
   esac
-  if test ! -e "$t"; then
-    t=$T
-    9 touch -ct 0 "$t"
-  elif test -h "$t"; then
-    symdate $a "$t"
+
+  if ! test -e "$target"; then
+    target=$temp
+    touch -ch -r /etc/epoch "$target"
+  elif test -h "$target"; then
+    symdate $a "$target"
   fi
-  test $f -gt 0 -o `stat -f %m "$t"` -gt `stat -f %m "$l"` && touch -chr "$t" "$l"
+
+  test $f -gt 0 -o `stat -f %m "$target"` -gt `stat -f %m "$link"` && touch -ch -r "$target" "$link"
 done

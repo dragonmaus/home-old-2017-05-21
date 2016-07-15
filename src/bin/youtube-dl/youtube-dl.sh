@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 c=${0%.sh}.py
 t=`stat -f %m "$c"`

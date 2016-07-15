@@ -26,6 +26,9 @@ const char *error_str(int i)
   X(error_isdir,"is a directory")
   X(error_connrefused,"connection refused")
   X(error_notdir,"not a directory")
+  X(error_notty,"not a tty")
+  X(error_inval,"invalid argument")
+  X(error_badfd,"file descriptor not open")
 #ifdef ESRCH
   X(ESRCH,"no such process")
 #endif
@@ -34,9 +37,6 @@ const char *error_str(int i)
 #endif
 #ifdef ENOEXEC
   X(ENOEXEC,"exec format error")
-#endif
-#ifdef EBADF
-  X(EBADF,"file descriptor not open")
 #endif
 #ifdef ECHILD
   X(ECHILD,"no child processes")
@@ -59,17 +59,11 @@ const char *error_str(int i)
 #ifdef ENODEV
   X(ENODEV,"device does not support operation")
 #endif
-#ifdef EINVAL
-  X(EINVAL,"invalid argument")
-#endif
 #ifdef ENFILE
   X(ENFILE,"system cannot open more files")
 #endif
 #ifdef EMFILE
   X(EMFILE,"process cannot open more files")
-#endif
-#ifdef ENOTTY
-  X(ENOTTY,"not a tty")
 #endif
 #ifdef EFBIG
   X(EFBIG,"file too big")

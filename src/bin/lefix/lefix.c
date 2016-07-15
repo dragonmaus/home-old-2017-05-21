@@ -1,17 +1,3 @@
-#if 0
-#include "strerr.h"
-#include "buffer.h"
-
-#define FATAL "fold: fatal: "
-
-int main(int argc,char **argv)
-{
-  for (;;) {
-    len = buffer_get(buffer_0,buf,BUFFER_INSIZE);
-    if (len <= 0) break;
-  }
-  if (len == -1) strerr_die2sys(111,FATAL,"unable to read input: ")
-#else
 #include <unistd.h>
 
 #define SIZE 4096
@@ -44,4 +30,18 @@ int main(void)
   if (len == -1) die();
   _exit(0);
 }
+
+#if 0
+#include "strerr.h"
+#include "buffer.h"
+
+#define FATAL "fold: fatal: "
+
+int main(int argc,char **argv)
+{
+  for (;;) {
+    len = buffer_get(buffer_0,buf,BUFFER_INSIZE);
+    if (len <= 0) break;
+  }
+  if (len == -1) strerr_die2sys(111,FATAL,"unable to read input: ")
 #endif

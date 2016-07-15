@@ -24,6 +24,7 @@ extern unsigned int scan_noncharsetnskip(const char *,const char *,unsigned int)
 extern unsigned int scan_strncmp(const char *,const char *,unsigned int);
 extern unsigned int scan_memcmp(const char *,const char *,unsigned int);
 
+extern unsigned int scan_int(const char *,int *);
 extern unsigned int scan_long(const char *,long *);
 extern unsigned int scan_8long(const char *,unsigned long *);
 

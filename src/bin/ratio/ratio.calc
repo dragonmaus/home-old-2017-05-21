@@ -1,0 +1,10 @@
+#!/usr/local/bin/calc -sf
+
+if (argv() != 3) {
+  fprintf(files(2), "usage: %s x y\n", config("program"));
+  abort "not enough arguments";
+}
+
+config("tilde",0),;
+
+printf("%r\n", eval(argv(1)) / eval(argv(2)));

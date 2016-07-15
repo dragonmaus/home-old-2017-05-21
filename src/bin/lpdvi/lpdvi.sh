@@ -1,5 +1,3 @@
 #!/bin/sh -e
 
-n=${1%.dvi}
-
-dvips -o '!lp' "$n"
+exec dvips -o '!lp' "${1%.dvi}"

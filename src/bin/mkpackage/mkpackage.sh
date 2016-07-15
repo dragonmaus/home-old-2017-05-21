@@ -1,7 +1,9 @@
 #!/bin/sh -e
 
-fatal() { echo "mkpackage: fatal: $*" 1>&2; exit 111; }
-usage() { echo 'mkpackage: usage: mkpackage name version' 1>&2; exit 100; }
+. $HOME/lib/sh/stdlib.sh
+
+fatal() (die 111 fatal "$*")
+usage() (die 100 usage 'mkpackage name version')
 
 test -n "$1" -a -n "$2" || usage
 name="$1"; version="$2"; shift 2

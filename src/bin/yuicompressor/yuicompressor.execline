@@ -1,3 +1,0 @@
-#!/command/execlineb -S0
-import HOME
-java -jar ${HOME}/lib/yuicompressor-2.4.8.jar $@

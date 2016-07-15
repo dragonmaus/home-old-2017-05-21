@@ -1,5 +1,5 @@
-#include <unistd.h>
 #include "buffer.h"
+#include <unistd.h>
 
 int main(void)
 {

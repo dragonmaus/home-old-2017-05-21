@@ -1,2 +1,0 @@
-#!/command/execlineb -P
-plutil -convert xml1 -o - -

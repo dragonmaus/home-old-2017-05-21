@@ -1,18 +1,22 @@
-#!/opt/local/bin/calc -sf
+#!/usr/local/bin/calc -sf
 
-config("display",1),;
-config("tilde",0),;
+if (argv() < 2) {
+  fprintf(files(2), "usage: %s x...\n", config("program"));
+  abort "not enough arguments";
+}
 
-prefix = list("","K","M","G","T","P","E","Z","Y");
+config("display", 1), config("tilde", 0),;
 
-if (argv() < 2) quit "not enough arguments"
+prefix = list("", "K", "M", "G", "T", "P", "E", "Z", "Y");
 
-for (i = 1;i < argv();++i) {
+for (i = 1; i < argv(); ++i) {
   n = eval(argv(i));
   p = 0;
+
   while (n >= 1024 && (p + 1) < size(prefix)) {
     n /= 1024;
     ++p;
   }
-  print n:prefix[p];
+
+  print n:prefix[p]:"B";
 }

@@ -1,2 +1,0 @@
-#!/command/execlineb -S0
-qrencode --margin=2 --type=UTF8 $@

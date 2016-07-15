@@ -3,5 +3,5 @@
 require "derpi"
 
 while line = gets do
-  puts Derpi::link(line.chomp)
+  puts Derpi.link(line.chomp)
 end

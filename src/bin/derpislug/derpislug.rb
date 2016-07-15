@@ -3,5 +3,5 @@
 require "derpi"
 
 while line = gets do
-  puts Derpi::slug(line.chomp)
+  puts Derpi.slug(line.chomp)
 end

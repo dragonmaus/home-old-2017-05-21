@@ -1,2 +1,0 @@
-#!/command/execlineb -S0
-jsmin --nomunge --preserve-semi $@

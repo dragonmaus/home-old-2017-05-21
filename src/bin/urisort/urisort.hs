@@ -1,4 +1,4 @@
-module Main ( main ) where
+module Main (main) where
 
 import Data.Char
 import Data.List

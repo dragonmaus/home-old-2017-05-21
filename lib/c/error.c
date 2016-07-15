@@ -130,3 +130,24 @@ ENOTDIR;
 #else
 -18;
 #endif
+
+int error_notty =
+#ifdef ENOTTY
+ENOTTY;
+#else
+-19;
+#endif
+
+int error_inval =
+#ifdef EINVAL
+EINVAL;
+#else
+-20;
+#endif
+
+int error_badfd =
+#ifdef EBADF
+EBADF;
+#else
+-21;
+#endif

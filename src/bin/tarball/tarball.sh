@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-. "$HOME"/lib/sh/stdlib.sh
+. $HOME/lib/sh/stdlib.sh
 
 findopts=
 gzipopts=
@@ -10,8 +10,8 @@ opts=123456789svxz
 
 usage() (die 100 usage "tarball [-$opts] path")
 
-while getopts $opts o; do
-  case $o in
+while getopts $opts opt; do
+  case $opt in
   1|2|3|4|5|6|7|8|9)
     gzip=.gz
     gzipopts=$gzipopts$o
@@ -56,7 +56,7 @@ for dir; do
   | gzip -cn$gzipopts \
   > "$out"{new}
 
-  touch -c -r "$dir" "$out"{new}
+  touch -ch -r "$dir" "$out"{new}
 
   fsync "$out"{new}
   mv -f "$out"{new} "$out"

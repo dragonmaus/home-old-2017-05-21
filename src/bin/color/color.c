@@ -5,9 +5,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define SIZE(x) (sizeof(x) / sizeof(*(x)))
-#define ISSET(x, mode) (((x) & (mode)) == (mode))
-
 enum {
   C_DIR,
   C_LNK,

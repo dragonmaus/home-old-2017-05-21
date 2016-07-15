@@ -3,5 +3,6 @@
 cd /tmp/djb
 
 for s do
-  find -H * -type f '(' -name '*.[ch]' -o -name '*.[ch][12]' ')' -exec grep -FHw "$s" {} +
+  find -H * -type f \( -name '*.[ch]' -o -name '*.[ch][12]' \) -print0 \
+  | xargs -0 grep -FHw "$s"
 done

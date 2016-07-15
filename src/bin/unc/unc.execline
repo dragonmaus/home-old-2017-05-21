@@ -1,4 +1,0 @@
-#!/command/execlineb
-importas -D "#" c 1
-emptyenv -P
-egrep -v "^${c}|^$"
