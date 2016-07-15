@@ -26,7 +26,6 @@ SUBDIR+=	alipo\
 	uriopen\
 	vimhelp\
 	vitex\
-	vitex+\
 	xmlfmt2\
 	youtube-dl\
 	yuicompressor
