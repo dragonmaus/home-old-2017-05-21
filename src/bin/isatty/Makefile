@@ -1,3 +1,4 @@
+LDADD=	-ldjb
 PROG=	isatty
 NO_MAN=
 
