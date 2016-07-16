@@ -1,5 +1,7 @@
 [color]
 	ui = auto
+[commit]
+	gpgsign = true
 [push]
 	default = simple
 [include]
