@@ -1,5 +1,6 @@
 set -a
 
+GPG_TTY=`tty`
 LESS=iMR
 LESSHISTFILE=/dev/null
 MAKEOBJDIRPREFIX=$HOME/obj

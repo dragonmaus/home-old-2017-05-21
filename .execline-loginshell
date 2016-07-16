@@ -35,6 +35,10 @@ multisubstitute
 }
 unexport PATH.new
 envdir ${HOME}/.execline-env
+backtick -n GPG_TTY
+{
+  tty
+}
 backtick -n PATH
 {
   multisubstitute
