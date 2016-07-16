@@ -1,7 +1,7 @@
 #!/usr/local/bin/ruby
 
-require "canon"
-require "clipboard"
+require 'canon'
+require 'clipboard'
 
 input = Clipboard.paste
 exit if String(input).empty?

@@ -1,7 +1,7 @@
 #!/usr/local/bin/ruby
 
-require "clipboard"
-require "derpi"
+require 'clipboard'
+require 'derpi'
 
 input = Clipboard.paste
 exit if String(input).empty?

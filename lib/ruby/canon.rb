@@ -1,11 +1,11 @@
-require "addressable/uri"
-require "hpricot"
-require "net/http"
+require 'addressable/uri'
+require 'hpricot'
+require 'net/http'
 
 module Addressable
   class URI
     def canonical
-      uri = self.fixup
+      uri = fixup
 
       response = uri.fetch
       response.uri = uri if response.uri.nil?
@@ -16,16 +16,16 @@ module Addressable
         return response.uri
       end
 
-      unless response.content_type == "text/html"
-        return response.uri
-      end
+      return response.uri unless response.content_type == 'text/html'
 
       document = Hpricot.parse(response.body)
       # <link rel="canonical"> takes priority over <meta property="og:url">
-      uri = if element = document.at("link[@rel='canonical']")
-              Addressable::URI.parse(element["href"])
-            elsif element = document.search("meta[@property$='url']").select { |element| element["property"] == "og:url" }[0]
-              Addressable::URI.parse(element["content"])
+      uri = if (element = document.at('link[@rel="canonical"]'))
+              Addressable::URI.parse(element['href'])
+            elsif (element = document.search('meta[@property$="url"]')
+                                     .select { |e| e['property'] == 'og:url' }
+                                     .first)
+              Addressable::URI.parse(element['content'])
             else
               response.uri
             end
@@ -38,21 +38,21 @@ module Addressable
     end
 
     def fetch(limit = 50)
-      Net::HTTP.start(self.hostname, self.port, :use_ssl => self.scheme == "https") do |http|
-        user_agent = "Mozilla/5.0"
+      Net::HTTP.start(hostname, port, use_ssl: scheme == 'https') do |http|
+        user_agent = 'Mozilla/5.0'
 
-        uri = self.dup
+        uri = dup
         response = nil
         limit.times do
           request = Net::HTTP::Head.new(uri)
-          request["user-agent"] = user_agent
+          request['user-agent'] = user_agent
 
           response = http.request(request)
 
           break unless response.is_a?(Net::HTTPRedirection)
 
           previous_uri = uri
-          uri = Addressable::URI.parse(response["location"]).fixup
+          uri = Addressable::URI.parse(response['location']).fixup
 
           # Detect redirect loops early
           break if uri == previous_uri
@@ -61,14 +61,14 @@ module Addressable
         # Some (rude) sites don't allow HEAD requests, so check for redirects
         (limit / 10).to_i.times do
           request = Net::HTTP::Get.new(uri)
-          request["user-agent"] = user_agent
+          request['user-agent'] = user_agent
 
           response = http.request(request)
 
           break unless response.is_a?(Net::HTTPRedirection)
 
           previous_uri = uri
-          uri = Addressable::URI.parse(response["location"]).fixup
+          uri = Addressable::URI.parse(response['location']).fixup
 
           # Detect redirect loops early
           break if uri == previous_uri
@@ -80,7 +80,7 @@ module Addressable
     end
 
     def fixup
-      self.normalize
+      normalize
     end
   end
 end

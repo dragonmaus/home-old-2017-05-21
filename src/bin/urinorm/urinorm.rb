@@ -1,7 +1,7 @@
 #!/usr/local/bin/ruby
 
-require "addressable/uri"
+require 'addressable/uri'
 
-while line = gets do
+while (line = gets)
   puts Addressable::URI.parse(line.chomp).normalize
 end

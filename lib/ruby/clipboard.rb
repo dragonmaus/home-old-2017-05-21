@@ -1,18 +1,18 @@
-require "open3"
+require 'open3'
 
 module Clipboard
-  extend self
+  module_function
 
   def clear
-    self.copy("")
+    copy('')
   end
 
   def copy(data)
-    Open3.popen3("pbcopy") { |i, _, _, _| i << data }
-    self.paste
+    Open3.popen3('pbcopy') { |i, _, _, _| i << data }
+    paste
   end
 
   def paste
-    Open3.popen3("pbpaste") { |_, o, _, _| o.read }
+    Open3.popen3('pbpaste') { |_, o, _, _| o.read }
   end
 end
