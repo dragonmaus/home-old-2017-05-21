@@ -8,12 +8,16 @@ module Addressable
 
       # Derpibooru
       if derpi?
-        return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}")) if /\A\/(?:images\/)?(?<id>\d+)/ =~ @path
+        if /\A\/(?:images\/)?(?<id>\d+)/ =~ @path
+          return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}"))
+        end
         @host = 'derpibooru.org'
       elsif @host == 'camo.derpicdn.net'
         return replace_self(Addressable::URI.parse(Addressable::URI.form_unencode(@query).to_h['url']).fixup!)
       elsif @host.end_with?('derpicdn.net') && !@path.start_with?('/avatars/')
-        return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}")) if /\A.*\/(?<id>\d+)/ =~ @path
+        if /\A.*\/(?<id>\d+)/ =~ @path
+          return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}"))
+        end
 
       # desustorage
       elsif @host.end_with?('desustorage.org')
@@ -21,18 +25,28 @@ module Addressable
 
       # DeviantArt
       elsif @host.end_with?('deviantart.com')
-        return replace_self(Addressable::URI.parse(@query).fixup!) if @path == '/users/outgoing' && @query
-        return replace_self(Addressable::URI.parse("http://fav.me/#{id}")) if @fragment && /\/(?<id>d\w{6})/ =~ @fragment
+        if @path == '/users/outgoing' && @query
+          return replace_self(Addressable::URI.parse(@query).fixup!)
+        end
+        if @fragment && /\/(?<id>d\w{6})/ =~ @fragment
+          return replace_self(Addressable::URI.parse("http://fav.me/#{id}"))
+        end
       elsif @host.end_with?('deviantart.net')
-        return replace_self(Addressable::URI.parse("http://fav.me/#{id}")) if /\A.*\b(?<id>d\w{6})\b/ =~ @path.split('/').last
+        if /\A.*\b(?<id>d\w{6})\b/ =~ @path.split('/').last
+          return replace_self(Addressable::URI.parse("http://fav.me/#{id}"))
+        end
 
       # e621
       elsif @host.end_with?('e621.net')
         if @host.start_with?('static') && /\A\/data\/..\/..\/(?<hash>\h{32})/ =~ @path
           json = Addressable::URI.parse("https://e621.net/post/show.json?md5=#{hash}").fetch.body
-          return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}")) unless json.empty?
+          unless json.empty?
+            return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}"))
+          end
         end
-        return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{id}")) if /\A\/post\/show\/(?<id>\d+)/ =~ @path
+        if /\A\/post\/show\/(?<id>\d+)/ =~ @path
+          return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{id}"))
+        end
 
       # Imgur
       elsif @host == 'i.imgur.com'
@@ -48,7 +62,9 @@ module Addressable
 
       # My Little Face When
       elsif @host.end_with?('mylittlefacewhen.com')
-        return replace_self(Addressable::URI.parse("http://mylittlefacewhen.com/f/#{id}")) if /\A\/media\/.*\/mlfw(?<id>\d+)/ =~ @path
+        if /\A\/media\/.*\/mlfw(?<id>\d+)/ =~ @path
+          return replace_self(Addressable::URI.parse("http://mylittlefacewhen.com/f/#{id}"))
+        end
 
       # Pixiv
       elsif @host.end_with?('pixiv.net')
@@ -65,8 +81,12 @@ module Addressable
           @path = query_values['redirect_to']
           @query = nil
         end
-        return replace_self(Addressable::URI.parse("#{@scheme}://#{@path.split('/')[2]}.tumblr.com/").fixup!) if @path.start_with?('/blog/')
-        return replace_self(Addressable::URI.parse("http://#{@host}/post/#{id}")) if !@path.start_with?('/post/') && /\A\/\w+\/(?<id>\d+)/ =~ @path
+        if @path.start_with?('/blog/')
+          return replace_self(Addressable::URI.parse("#{@scheme}://#{@path.split('/')[2]}.tumblr.com/").fixup!)
+        end
+        if !@path.start_with?('/post/') && /\A\/\w+\/(?<id>\d+)/ =~ @path
+          return replace_self(Addressable::URI.parse("http://#{@host}/post/#{id}"))
+        end
       elsif @host == 't.umblr.com'
         return replace_self(Addressable::URI.parse(Addressable::URI.form_unencode(@query).to_h['z']).fixup!)
 
