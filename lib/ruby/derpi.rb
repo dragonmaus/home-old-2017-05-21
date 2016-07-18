@@ -9,14 +9,14 @@ module Addressable
       # Derpibooru
       if derpi?
         if /\A\/(?:images\/)?(?<id>\d+)/ =~ @path
-          return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}"))
+          return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
         @host = 'derpibooru.org'
       elsif @host == 'camo.derpicdn.net'
-        return replace_self(Addressable::URI.parse(Addressable::URI.form_unencode(@query).to_h['url']).fixup!)
+        return replace_self(self.class.parse(self.class.form_unencode(@query).to_h['url']).fixup!)
       elsif @host.end_with?('derpicdn.net') && !@path.start_with?('/avatars/')
         if /\A.*\/(?<id>\d+)/ =~ @path
-          return replace_self(Addressable::URI.parse("https://derpibooru.org/#{id}"))
+          return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
 
       # desustorage
@@ -26,31 +26,31 @@ module Addressable
       # DeviantArt
       elsif @host.end_with?('deviantart.com')
         if @path == '/users/outgoing' && @query
-          return replace_self(Addressable::URI.parse(@query).fixup!)
+          return replace_self(self.class.parse(@query).fixup!)
         end
         if @fragment && /\/(?<id>d\w{6})/ =~ @fragment
-          return replace_self(Addressable::URI.parse("http://fav.me/#{id}"))
+          return replace_self(self.class.parse("http://fav.me/#{id}"))
         end
       elsif @host.end_with?('deviantart.net')
         if /\A.*\b(?<id>d\w{6})\b/ =~ @path.split('/').last
-          return replace_self(Addressable::URI.parse("http://fav.me/#{id}"))
+          return replace_self(self.class.parse("http://fav.me/#{id}"))
         end
 
       # e621
       elsif @host.end_with?('e621.net')
         if @host.start_with?('static') && /\A\/data\/..\/..\/(?<hash>\h{32})/ =~ @path
-          json = Addressable::URI.parse("https://e621.net/post/show.json?md5=#{hash}").fetch.body
+          json = self.class.parse("https://e621.net/post/show.json?md5=#{hash}").fetch.body
           unless json.empty?
-            return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}"))
+            return replace_self(self.class.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}"))
           end
         end
         if /\A\/post\/show\/(?<id>\d+)/ =~ @path
-          return replace_self(Addressable::URI.parse("https://e621.net/post/show/#{id}"))
+          return replace_self(self.class.parse("https://e621.net/post/show/#{id}"))
         end
 
       # Imgur
       elsif @host == 'i.imgur.com'
-        return replace_self(Addressable::URI.parse("http://imgur.com/#{@path.split('/').last.split('.').first}"))
+        return replace_self(self.class.parse("http://imgur.com/#{@path.split('/').last.split('.').first}"))
 
       # Inkbunny
       elsif @host.end_with?('inkbunny.net')
@@ -58,12 +58,12 @@ module Addressable
 
       # Know Your Meme
       elsif @host.end_with?('kym-cdn.com')
-        return replace_self(Addressable::URI.parse("http://knowyourmeme.com/photos/#{@path.split('/')[-4, 3].join('')}"))
+        return replace_self(self.class.parse("http://knowyourmeme.com/photos/#{@path.split('/')[-4, 3].join('')}"))
 
       # My Little Face When
       elsif @host.end_with?('mylittlefacewhen.com')
         if /\A\/media\/.*\/mlfw(?<id>\d+)/ =~ @path
-          return replace_self(Addressable::URI.parse("http://mylittlefacewhen.com/f/#{id}"))
+          return replace_self(self.class.parse("http://mylittlefacewhen.com/f/#{id}"))
         end
 
       # Pixiv
@@ -82,13 +82,13 @@ module Addressable
           @query = nil
         end
         if @path.start_with?('/blog/')
-          return replace_self(Addressable::URI.parse("#{@scheme}://#{@path.split('/')[2]}.tumblr.com/").fixup!)
+          return replace_self(self.class.parse("#{@scheme}://#{@path.split('/')[2]}.tumblr.com/").fixup!)
         end
         if !@path.start_with?('/post/') && /\A\/\w+\/(?<id>\d+)/ =~ @path
-          return replace_self(Addressable::URI.parse("http://#{@host}/post/#{id}"))
+          return replace_self(self.class.parse("http://#{@host}/post/#{id}"))
         end
       elsif @host == 't.umblr.com'
-        return replace_self(Addressable::URI.parse(Addressable::URI.form_unencode(@query).to_h['z']).fixup!)
+        return replace_self(self.class.parse(self.class.form_unencode(@query).to_h['z']).fixup!)
 
       end
 

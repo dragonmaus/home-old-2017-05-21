@@ -26,18 +26,18 @@ module Addressable
       # <link rel="canonical"> takes priority over <meta property="og:url">
       replace_self(
         if (element = document.at('link[@rel="canonical"]'))
-          Addressable::URI.parse(element['href'])
+          self.class.parse(element['href'])
         elsif (element = document.search('meta[@property$="url"]')
                                  .select { |e| e['property'] == 'og:url' }
                                  .first)
-          Addressable::URI.parse(element['content'])
+          self.class.parse(element['content'])
         else
           response.uri
         end
       )
 
       # The spec allows the canonical link to be a relative URI
-      replace_self(Addressable::URI.join(response.uri.to_s, self)) unless absolute?
+      replace_self(self.class.join(response.uri.to_s, self)) unless absolute?
 
       # Because you can't always trust sites to do things properly
       normalize!
@@ -82,7 +82,7 @@ module Addressable
         return response, uri unless response.is_a? Net::HTTPRedirection
 
         previous_uri = uri
-        uri = Addressable::URI.parse(response['location'])
+        uri = self.class.parse(response['location'])
         uri.fixup!
 
         # Detect redirect loops early
