@@ -13,6 +13,7 @@ SUBDIR=	cdiff\
 	dircp\
 	en%\
 	hb\
+	imgcat\
 	isatty\
 	lc\
 	lefix\
