@@ -27,7 +27,8 @@ if `isatty 0`; then
   test $# -gt 0 || usage
 
   for file do
-    test -f "$file" || die 111 fatal "$file: No such file or directory"
+    test -e "$file" || die 111 fatal "$file: No such file or directory"
+    test -d "$file" && continue
 
     print_image "$file" <"$file"
   done
