@@ -19,6 +19,10 @@ module Addressable
           return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
 
+      # CNN
+      elsif @host.end_with?('cnn.com')
+        @scheme = 'http' if @scheme == 'https'
+
       # desustorage
       elsif @host.end_with?('desustorage.org')
         @scheme = 'http' if @scheme == 'https'
@@ -47,6 +51,10 @@ module Addressable
         if /\A\/post\/show\/(?<id>\d+)/ =~ @path
           return replace_self(self.class.parse("https://e621.net/post/show/#{id}"))
         end
+
+      # FurAffinity
+      elsif @host.end_with?('furaffinity.net')
+        @host.sub!(/^wwww\./, 'www.') if @host.start_with?('wwww.')
 
       # Imgur
       elsif @host == 'i.imgur.com'
@@ -110,6 +118,7 @@ module Addressable
                       'jykinturah.me',
                       'kevinsano.com',
                       'mangochan.com',
+                      'northernsprint.com',
                       'sugaryviolet.horse')
     end
   end
