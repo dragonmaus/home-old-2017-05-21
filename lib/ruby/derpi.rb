@@ -61,6 +61,10 @@ module Addressable
       elsif @host.end_with?('furaffinity.net')
         @host.sub!(/^wwww\./, 'www.') if @host.start_with?('wwww.')
 
+      # Google
+      elsif google?
+        return replace_self(self.class.join("#{@scheme}://#{@host}/", query_values['url']).fixup!) if @path == '/url' && @query && query_values['url']
+
       # Imgur
       elsif @host == 'i.imgur.com'
         return replace_self(self.class.parse("http://imgur.com/#{@path.split('/').last.split('.').first}"))
@@ -122,6 +126,11 @@ module Addressable
       @host.end_with?('derpibooru.org',
                       'derpiboo.ru',
                       'trixiebooru.org')
+    end
+
+    def google?
+      @host.end_with?('google.com',
+                      'google.co.uk')
     end
 
     def tumblr?
