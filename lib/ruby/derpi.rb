@@ -52,6 +52,11 @@ module Addressable
           return replace_self(self.class.parse("https://e621.net/post/show/#{id}"))
         end
 
+      # FlaredPonies
+      elsif @host.end_with?('flaredponies.com')
+        @host = 'smoodged.tumblr.com'
+        @scheme = 'http' if @scheme == 'https'
+
       # FurAffinity
       elsif @host.end_with?('furaffinity.net')
         @host.sub!(/^wwww\./, 'www.') if @host.start_with?('wwww.')

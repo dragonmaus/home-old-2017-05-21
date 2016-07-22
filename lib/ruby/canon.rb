@@ -27,8 +27,8 @@ module Addressable
       replace_self(
         if (element = document.at('link[@rel="canonical"]'))
           self.class.parse(element['href'])
-        elsif (element = document.search('meta[@property$="url"]')
-                                 .select { |e| e['property'] == 'og:url' }
+        elsif (element = document.search('meta[@property$="url"]') \
+                                 .select { |e| e['property'] == 'og:url' } \
                                  .first)
           self.class.parse(element['content'])
         else
