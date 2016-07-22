@@ -103,6 +103,14 @@ module Addressable
       elsif @host == 't.umblr.com'
         return replace_self(self.class.parse(self.class.form_unencode(@query).to_h['z']).fixup!)
 
+      # Wikia
+      elsif @host.end_with?('wikia.com')
+        if @query && query_values['file']
+          file = self.class.unencode(query_values['file'])
+          file.gsub!('&quot;', '"')
+          @path = "/wiki/File:#{file}"
+        end
+
       end
 
       self
