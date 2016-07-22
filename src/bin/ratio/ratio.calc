@@ -1,4 +1,4 @@
-#!/usr/bin/env calc -sf
+#!/usr/local/bin/calc -sf
 
 if (argv() != 3) {
   fprintf(files(2), "usage: %s x y\n", config("program"));
