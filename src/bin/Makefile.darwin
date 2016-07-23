@@ -2,6 +2,7 @@ SUBDIR+=	alipo\
 	aws\
 	backup-save\
 	cm\
+	derpi\
 	dns-update\
 	doss\
 	fsync\
