@@ -1,5 +1,6 @@
 SUBDIR+=	backup\
 	book\
+	crunch\
 	find-backup\
 	pbcopy\
 	pbpaste\
