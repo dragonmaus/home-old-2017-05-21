@@ -18,9 +18,11 @@
 /.git-credentials
 /.gitconfig-secret
 /.gnupg/
+/.hex/
 /.indent.pro
 /.keepassx/
 /.local/
+/.mix/
 /.rnd
 /.ssh/
 /.stack/
