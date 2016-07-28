@@ -14,3 +14,5 @@ TOP='-atu -s1'
 set +a
 
 test -x /usr/games/fortune && /usr/games/fortune freebsd-tips
+
+exec ssh-agent ${SHELL##*/} ${1+"$@"}

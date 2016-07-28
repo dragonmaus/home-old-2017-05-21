@@ -2,6 +2,7 @@
 import HOME
 export ENV ${HOME}/.shrc
 export ENVD ${HOME}/.sh
+ssh-agent
 tryexec -a sh
 {
   bash $@
