@@ -88,7 +88,7 @@ module Addressable
         @scheme = 'http' if @scheme == 'https'
 
       # Rule 34
-      elsif @host.end_with?('rule34.paheal.net')
+      elsif @host.end_with?('paheal.net')
         @scheme = 'http' if @scheme == 'https'
 
       # Tumblr
@@ -135,6 +135,7 @@ module Addressable
 
     def tumblr?
       @host.end_with?('tumblr.com',
+                      'equestriart.net',
                       'fruitymilk.co.uk',
                       'jayisbutts.com',
                       'jykinturah.me',
