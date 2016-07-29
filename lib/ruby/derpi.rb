@@ -130,7 +130,8 @@ module Addressable
 
     def google?
       @host.end_with?('google.com',
-                      'google.co.uk')
+                      'google.co.uk',
+                      'google.fi')
     end
 
     def tumblr?
