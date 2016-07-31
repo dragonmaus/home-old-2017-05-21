@@ -28,6 +28,7 @@
 /.ssh/
 /.stack/
 /.subversion/
+/.vagrant.d/
 /.viminfo
 /.weechat/
 /.znc/

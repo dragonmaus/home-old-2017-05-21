@@ -5,4 +5,5 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.rc setfiletype rc
   autocmd BufNewFile,BufRead rcmain setfiletype rc
   autocmd BufNewFile,BufRead ~/lib/profile setfiletype rc
+  autocmd BufNewFile,BufRead VagrantFile setfiletype ruby
 augroup END
