@@ -86,6 +86,10 @@ module Addressable
       # Pixiv
       elsif @host.end_with?('pixiv.net')
         @scheme = 'http' if @scheme == 'https'
+        if @query && query_values['mode'] != 'medium'
+          self.query_values = query_values.update('mode' => 'medium')
+          return fixup!
+        end
 
       # Rule 34
       elsif @host.end_with?('paheal.net')
@@ -144,6 +148,7 @@ module Addressable
                       'kevinsano.com',
                       'mangochan.com',
                       'northernsprint.com',
+                      'ralek-arts.com',
                       'sugaryviolet.horse')
     end
   end
