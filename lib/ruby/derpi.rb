@@ -111,6 +111,10 @@ module Addressable
       elsif @host == 't.umblr.com'
         return replace_self(self.class.parse(self.class.form_unencode(@query).to_h['z']).fixup!)
 
+      # Vk
+      elsif @host.end_with?('vk.com')
+        @host = 'vk.com' if @host == 'www.vk.com'
+
       # Wikia
       elsif @host.end_with?('wikia.com')
         if @query && query_values['file']
