@@ -45,10 +45,12 @@ module Addressable
 
     def fetch(limit = 50)
       Net::HTTP.start(hostname, port, use_ssl: scheme == 'https') do |http|
-        _response, uri = follow(http, self, limit, :head)
+        response, uri = follow(http, self, limit, :head)
 
-        # Some (rude) sites don't allow HEAD requests
-        response, uri = follow(http, uri, (limit / 10).to_i, :get)
+        if !response.is_a?(Net::HTTPOK) || response.content_type == 'text/html'
+          # Some (rude) sites don't allow HEAD requests
+          response, uri = follow(http, uri, (limit / 10).to_i, :get)
+        end
 
         response.uri ||= uri
         response
