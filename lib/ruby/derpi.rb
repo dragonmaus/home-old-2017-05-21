@@ -121,6 +121,12 @@ module Addressable
           @path = "/wiki/File:#{file}"
         end
 
+      # Russian clone sites
+      elsif russia?
+        if /\A\/view\/\d+/ =~ @path
+          @host = 'www.furaffinity.net'
+        end
+
       end
 
       self
@@ -139,6 +145,10 @@ module Addressable
                       'google.co.uk',
                       'google.co.za',
                       'google.fi')
+    end
+
+    def russia?
+      @host.end_with?('cmle.ru')
     end
 
     def tumblr?
