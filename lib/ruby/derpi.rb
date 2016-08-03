@@ -44,9 +44,7 @@ module Addressable
       elsif @host.end_with?('e621.net')
         if @host.start_with?('static') && /\A\/data\/..\/..\/(?<hash>\h{32})/ =~ @path
           json = self.class.parse("https://e621.net/post/show.json?md5=#{hash}").fetch.body
-          unless json.empty?
-            return replace_self(self.class.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}"))
-          end
+          return replace_self(self.class.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}")) if json && !json.empty?
         end
         if /\A\/post\/show\/(?<id>\d+)/ =~ @path
           return replace_self(self.class.parse("https://e621.net/post/show/#{id}"))
