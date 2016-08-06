@@ -142,6 +142,7 @@ module Addressable
 
     def google?
       @host.end_with?('google.com',
+                      'google.ca',
                       'google.co.uk',
                       'google.co.za',
                       'google.fi')
