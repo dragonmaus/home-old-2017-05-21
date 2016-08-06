@@ -162,7 +162,8 @@ module Addressable
                       'mangochan.com',
                       'northernsprint.com',
                       'ralek-arts.com',
-                      'sugaryviolet.horse')
+                      'sugaryviolet.horse',
+                      'whatsapokemon.com')
     end
   end
 end
