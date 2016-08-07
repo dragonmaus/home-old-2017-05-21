@@ -58,6 +58,7 @@ module Addressable
       # FurAffinity
       elsif @host.end_with?('furaffinity.net')
         @host.sub!(/^wwww\./, 'www.') if @host.start_with?('wwww.')
+        @port &&= nil
 
       # Google
       elsif google?
