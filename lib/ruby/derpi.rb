@@ -158,6 +158,7 @@ module Addressable
                       'equestriart.net',
                       'fruitymilk.co.uk',
                       'jayisbutts.com',
+                      'joeyh3.com',
                       'jykinturah.me',
                       'kevinsano.com',
                       'mangochan.com',
