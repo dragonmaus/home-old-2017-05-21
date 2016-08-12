@@ -19,6 +19,10 @@ module Addressable
           return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
 
+      # 4chan
+      elsif @host.end_with?('4chan.org')
+        return replace_self(self.class.parse(query_values['url']).fixup!) if @host == 'sys.4chan.org' && @path == '/derefer' && @query && query_values['url']
+
       # CNN
       elsif @host.end_with?('cnn.com')
         @scheme = 'http' if @scheme == 'https'
