@@ -47,7 +47,7 @@ module Addressable
       Net::HTTP.start(hostname, port, use_ssl: scheme == 'https') do |http|
         response, uri = follow(http, self, limit, :head)
 
-        if !response.is_a?(Net::HTTPOK) || is_text?(response.content_type)
+        if !response.is_a?(Net::HTTPOK) || text?(response.content_type)
           # Some (rude) sites don't allow HEAD requests
           response, uri = follow(http, uri, (limit / 10).to_i, :get)
         end
@@ -67,7 +67,7 @@ module Addressable
 
     private
 
-    def is_text?(type)
+    def text?(type)
       type.start_with?('text/') || type == 'application/json'
     end
 
