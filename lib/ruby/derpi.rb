@@ -159,6 +159,7 @@ module Addressable
 
     def tumblr?
       @host.end_with?('tumblr.com',
+                      'braeburned.com',
                       'equestriart.net',
                       'fruitymilk.co.uk',
                       'jayisbutts.com',
