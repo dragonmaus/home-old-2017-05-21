@@ -88,7 +88,7 @@ module Addressable
         return response, uri unless response.is_a? Net::HTTPRedirection
 
         previous_uri = uri
-        uri = self.class.parse(response['location'])
+        uri = self.class.join(uri.to_s, response['location'])
         uri.fixup!
 
         # Detect redirect loops early
