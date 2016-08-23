@@ -55,6 +55,7 @@ backtick -n PATH
     $PATH.new
     ${HOME}/bin
     ${HOME}/.cabal/bin
+    ${HOME}/.rbenv/bin
     ${HOME}/Library/Android/sdk/tools
     ${HOME}/Library/Android/sdk/platform-tools
   }
