@@ -8,6 +8,7 @@ SUBDIR=	cdiff\
 	derpifix\
 	derpilink\
 	derpislug\
+	derpiunslug\
 	derpivote\
 	dircopy\
 	dircp\

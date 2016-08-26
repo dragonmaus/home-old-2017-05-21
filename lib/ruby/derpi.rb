@@ -194,4 +194,18 @@ module Derpi
 
     Addressable::URI.escape(name).gsub('%20', '+')
   end
+
+  def unslug(slug)
+    slug = Addressable::URI.unescape(slug.gsub('+', '%20'))
+
+    slug.gsub!('-plus-', '+')
+    slug.gsub!('-dot-', '.')
+    slug.gsub!('-colon-', ':')
+    slug.gsub!('-bwslash-', '\\')
+    slug.gsub!('-fwslash-', '/')
+    slug.gsub!('-dash-', '-')
+
+    # downcase is one-way; there's no way to recover the original case information
+    slug
+  end
 end
