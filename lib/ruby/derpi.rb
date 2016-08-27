@@ -167,6 +167,7 @@ module Addressable
                       'jykinturah.me',
                       'kevinsano.com',
                       'mangochan.com',
+                      'moonsugar.co.vu',
                       'northernsprint.com',
                       'ralek-arts.com',
                       'sugaryviolet.horse',
