@@ -8,7 +8,7 @@ module Clipboard
   #
   # Returns nothing.
   def clear
-    copy('')
+    copy ''
   end
 
   # Public: Set the clipboard.

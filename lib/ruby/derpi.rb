@@ -180,31 +180,31 @@ module Derpi
   module_function
 
   def link(name)
-    "\"@#{name}@\":/tags/#{slug(name)}"
+    "\"@#{name}@\":/tags/#{slug name}"
   end
 
   def slug(name)
     name = name.downcase
 
-    name.gsub!('-', '-dash-')
-    name.gsub!('/', '-fwslash-')
-    name.gsub!('\\', '-bwslash-')
-    name.gsub!(':', '-colon-')
-    name.gsub!('.', '-dot-')
-    name.gsub!('+', '-plus-')
+    name.gsub! '-', '-dash-'
+    name.gsub! '/', '-fwslash-'
+    name.gsub! '\\', '-bwslash-'
+    name.gsub! ':', '-colon-'
+    name.gsub! '.', '-dot-'
+    name.gsub! '+', '-plus-'
 
-    Addressable::URI.escape(name).gsub('%20', '+')
+    Addressable::URI.escape(name).gsub '%20', '+'
   end
 
   def unslug(slug)
-    slug = Addressable::URI.unescape(slug.gsub('+', '%20'))
+    slug = Addressable::URI.unescape slug.gsub '+', '%20'
 
-    slug.gsub!('-plus-', '+')
-    slug.gsub!('-dot-', '.')
-    slug.gsub!('-colon-', ':')
-    slug.gsub!('-bwslash-', '\\')
-    slug.gsub!('-fwslash-', '/')
-    slug.gsub!('-dash-', '-')
+    slug.gsub! '-plus-', '+'
+    slug.gsub! '-dot-', '.'
+    slug.gsub! '-colon-', ':'
+    slug.gsub! '-bwslash-', '\\'
+    slug.gsub! '-fwslash-', '/'
+    slug.gsub! '-dash-', '-'
 
     # downcase is one-way; there's no way to recover the original case information
     slug
