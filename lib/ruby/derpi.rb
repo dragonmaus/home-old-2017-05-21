@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'canon'
 require 'json'
 
@@ -128,9 +129,7 @@ module Addressable
 
       # Russian clone sites
       elsif russia?
-        if /\A\/view\/\d+/ =~ @path
-          @host = 'www.furaffinity.net'
-        end
+        @host = 'www.furaffinity.net' if /\A\/view\/\d+/ =~ @path
 
       end
 
