@@ -1,17 +1,17 @@
-if test x"$PS0" = x; then
-  PS0=$0
+if test x"$PSO" = x; then
+  PSO=$0
 else
-  PS0=$PS0'>'$0
+  PSO=$PSO'>'$0
 fi
-export PS0
-PS1=$PS0' '$PS1
+export PSO
+PS1=$PSO' '$PS1
 
 exec_() {
   if test x${1+set} = xset; then
-    PS0='>'$PS0
-    PS0=${PS0%>*}
-    PS0=${PS0#>}
-    export PS0
+    PSO='>'$PSO
+    PSO=${PSO%>*}
+    PSO=${PSO#>}
+    export PSO
   fi
   command exec ${1+"$@"}
 }
