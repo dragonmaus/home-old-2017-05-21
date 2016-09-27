@@ -25,7 +25,6 @@
 /.local/
 /.mix/
 /.npm/
-/.rbenv/
 /.rnd
 /.ssh/
 /.stack/

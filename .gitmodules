@@ -4,3 +4,6 @@
 [submodule ".vim/ftbundle/slim/vim-slim"]
 	path = .vim/ftbundle/slim/vim-slim
 	url = git@github.com:slim-template/vim-slim.git
+[submodule ".rbenv"]
+	path = .rbenv
+	url = git@github.com:rbenv/rbenv.git
