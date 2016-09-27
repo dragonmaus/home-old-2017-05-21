@@ -1,3 +1,6 @@
 [submodule ".vim/vim-unbundle"]
 	path = .vim/vim-unbundle
 	url = git@github.com:sunaku/vim-unbundle.git
+[submodule ".vim/ftbundle/slim/vim-slim"]
+	path = .vim/ftbundle/slim/vim-slim
+	url = git@github.com:slim-template/vim-slim.git
