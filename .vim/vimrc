@@ -1,3 +1,4 @@
+runtime vim-unbundle/plugin/unbundle.vim
 filetype plugin indent on
 set autoindent
 set background=dark

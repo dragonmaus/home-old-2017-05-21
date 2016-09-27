@@ -1,0 +1,3 @@
+[submodule ".vim/vim-unbundle"]
+	path = .vim/vim-unbundle
+	url = git@github.com:sunaku/vim-unbundle.git
