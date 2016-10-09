@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'canon'
+require 'addressable/uri/canon'
 
 while (line = gets)
   unless line.include?('.') || line.include?('/')

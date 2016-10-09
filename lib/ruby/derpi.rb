@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'canon'
+require 'addressable/uri/canon'
 require 'json'
 
 module Addressable
