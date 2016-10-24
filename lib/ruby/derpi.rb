@@ -168,6 +168,7 @@ module Addressable
                       'mangochan.com',
                       'moonsugar.co.vu',
                       'northernsprint.com',
+                      'pepperoach.com',
                       'ralek-arts.com',
                       'sugaryviolet.horse',
                       'whatsapokemon.com')
