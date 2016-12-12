@@ -1,6 +1,7 @@
 /*
 
 !/.*
+!/Gemfile*
 !/README.md
 !/lib/
 !/src/

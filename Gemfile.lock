@@ -1,0 +1,51 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
+    ast (2.3.0)
+    canonical (0.0.2)
+      fetchable-uri (~> 0)
+      nokogiri (~> 1.6)
+    fetchable-uri (0.0.2)
+      addressable (~> 2.4)
+    mini_portile2 (2.1.0)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
+    parser (2.3.3.1)
+      ast (~> 2.2)
+    powerpack (0.1.1)
+    public_suffix (2.0.4)
+    rainbow (2.1.0)
+    rake (11.3.0)
+    rubocop (0.46.0)
+      parser (>= 2.3.1.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.8.1)
+    slim (3.0.7)
+      temple (~> 0.7.6)
+      tilt (>= 1.3.3, < 2.1)
+    slim_lint (0.8.3)
+      rake (>= 10, < 12)
+      rubocop (>= 0.36.0)
+      slim (~> 3.0)
+      sysexits (~> 1.1)
+    sysexits (1.2.0)
+    temple (0.7.7)
+    tilt (2.0.5)
+    unicode-display_width (1.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  canonical
+  nokogiri
+  rubocop
+  slim_lint
+
+BUNDLED WITH
+   1.13.6
