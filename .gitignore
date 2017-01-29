@@ -26,6 +26,7 @@
 /.local/
 /.mix/
 /.npm/
+/.oracle_jre_usage/
 /.rnd
 /.ssh/
 /.stack/
@@ -39,4 +40,5 @@
 *.hi
 *.o
 *~
+.DS_Store
 old
