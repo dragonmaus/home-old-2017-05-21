@@ -7,4 +7,6 @@ if (argv() != 3) {
 
 config("tilde",0),;
 
-printf("%r\n", eval(argv(1)) / eval(argv(2)));
+r = eval(argv(1)) / eval(argv(2));
+
+printf("%r (%f)\n", r, r);
