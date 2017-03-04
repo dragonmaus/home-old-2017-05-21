@@ -18,6 +18,7 @@ SUBDIR=	cdiff\
 	isatty\
 	lc\
 	lefix\
+	lein-repl\
 	ll\
 	mkpatch\
 	namechange\
