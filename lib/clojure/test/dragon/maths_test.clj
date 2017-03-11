@@ -9,7 +9,7 @@
   (testing "the value of constant"
     (testing "e"
       (is (= 2.718281828459045 (double e))))
-    (testing "pi"
-      (is (= 3.141592653589793 (double pi))))
-    (testing "tau"
-      (is (= 6.283185307179586 (double tau))))))
+    (testing "π"
+      (is (= 3.141592653589793 (double π))))
+    (testing "τ"
+      (is (= 6.283185307179586 (double τ))))))
