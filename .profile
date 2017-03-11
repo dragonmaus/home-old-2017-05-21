@@ -11,6 +11,8 @@ which npm >/dev/null 2>/dev/null && PATH=$PATH:`npm bin`
 RUBYLIB=$HOME/lib/ruby
 SYSTEM=`uname -s | tr A-Z a-z`
 TOP='-atu -s1'
+pi=π
+tau=τ
 
 set +a
 
