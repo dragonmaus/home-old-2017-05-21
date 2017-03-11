@@ -28,6 +28,7 @@ SUBDIR=	cdiff\
 	ratio\
 	sharball\
 	shells\
+	svgopt\
 	tarball\
 	un%\
 	unc\
