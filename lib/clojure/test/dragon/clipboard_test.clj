@@ -6,8 +6,10 @@
 (deftest clipboard
   (let [data "The quick brown fox jumps over the lazy dog."]
     (testing "copy+paste"
-      (is (= true (copy data)))
-      (is (= data (paste))))
+      (is (= data (do
+                    (copy data)
+                    (paste)))))
     (testing "clear"
-      (is (= true (clear)))
-      (is (empty? (paste))))))
+      (is (empty? (do
+                    (clear)
+                    (paste)))))))

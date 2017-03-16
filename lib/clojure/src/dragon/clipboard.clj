@@ -1,15 +1,20 @@
 (ns dragon.clipboard
-  (:refer-clojure)
-  (:require [clojure.java.shell :as shell]))
+  (:refer-clojure))
 
-(defn copy
-  [data]
-  (= 0 (:exit (shell/sh "pbcopy" :in data))))
-
-(defn paste
-  []
-  (:out (shell/sh "pbpaste")))
+(declare copy)
 
 (defn clear
   []
-  (copy ""))
+  (copy nil))
+
+(case (System/getProperty "os.name")
+  "Windows" ; FIXME: Not sure what actually goes here
+  (require '[dragon.clipboard.awt :as internal])
+  "Mac OS X"
+  (require '[dragon.clipboard.osx :as internal])
+  ; default
+  (require '[dragon.clipboard.txt :as internal]))
+
+(def copy internal/copy)
+
+(def paste internal/paste)
