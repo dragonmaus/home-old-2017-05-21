@@ -1,5 +1,6 @@
 (ns dragon.clipboard
-  (:refer-clojure))
+  (:refer-clojure)
+  (:require [clojure.string :as str]))
 
 (declare copy)
 
@@ -7,10 +8,10 @@
   []
   (copy nil))
 
-(case (System/getProperty "os.name")
-  "Windows" ; FIXME: Not sure what actually goes here
+(case (first (str/split (System/getProperty "os.name") #"\s+"))
+  "Windows"
   (require '[dragon.clipboard.awt :as internal])
-  "Mac OS X"
+  "Mac"
   (require '[dragon.clipboard.osx :as internal])
   ; default
   (require '[dragon.clipboard.txt :as internal]))
