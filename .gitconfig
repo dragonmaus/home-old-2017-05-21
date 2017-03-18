@@ -4,5 +4,7 @@
 	gpgsign = true
 [push]
 	default = simple
+[gpg]
+	program = gpg2
 [include]
 	path = .gitconfig-secret
