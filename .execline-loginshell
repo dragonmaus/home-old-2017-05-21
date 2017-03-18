@@ -58,6 +58,7 @@ backtick -n PATH
     ${HOME}/.rbenv/bin
     ${HOME}/Library/Android/sdk/tools
     ${HOME}/Library/Android/sdk/platform-tools
+    ${GOPATH}/bin
     ${HOME}/node_modules/.bin
   }
   tr " " :
