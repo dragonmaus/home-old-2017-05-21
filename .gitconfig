@@ -2,9 +2,9 @@
 	ui = auto
 [commit]
 	gpgsign = true
-[push]
-	default = simple
 [gpg]
 	program = gpg2
 [include]
 	path = .gitconfig-secret
+[push]
+	default = simple
