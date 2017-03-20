@@ -8,11 +8,10 @@
 
 (defn copy
   [data]
-  (let [s (StringSelection. (str data))]
-    (.setContents *clipboard* s nil)))
+  (.setContents *clipboard* (StringSelection. (str data)) nil))
 
 (defn paste
   []
   (if (.isDataFlavorAvailable *clipboard* *data-flavor*)
     (.getData *clipboard* *data-flavor*)
-    ""))
+    nil))

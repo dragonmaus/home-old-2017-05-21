@@ -1,13 +1,14 @@
 (ns dragon.clipboard.txt
-  (:refer-clojure)
-  (:require [clojure.java.shell :as shell]))
+  (:import [java.io File])
+  (:refer-clojure))
 
-(def ^:dynamic *clipboard-path* (str (System/getenv "HOME") "/.clipboard"))
+(def ^:dynamic *clipboard* (File. (str (System/getProperty "user.home")
+                                       "/.clipboard")))
 
 (defn copy
   [data]
-  (spit *clipboard-path* data))
+  (spit *clipboard* data))
 
 (defn paste
   []
-  (slurp *clipboard-path*))
+  (slurp *clipboard*))
