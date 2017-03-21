@@ -9,4 +9,5 @@
                                (require '[dragon.core :refer :all])
                                (require '[dragon.maths :as maths])
                                (require '[environ.core :refer [env]])
-                               (intern 'environ.core 'env (into (sorted-map) environ.core/env)))}}}
+                               (intern 'environ.core 'env (into (sorted-map) environ.core/env)))}}
+ :user {:plugins [[jonase/eastwood "0.2.3"]]}}
