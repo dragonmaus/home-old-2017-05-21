@@ -9,14 +9,14 @@ module Addressable
 
       # Derpibooru
       if derpi?
-        if /\A\/(?:images\/)?(?<id>\d+)/ =~ @path
+        if /\A\/(?:images\/)?(?<id>\d+)/.match?(@path)
           return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
         @host = 'derpibooru.org'
       elsif @host == 'camo.derpicdn.net'
         return replace_self(self.class.parse(self.class.form_unencode(@query).to_h['url']).fixup!)
       elsif @host.end_with?('derpicdn.net') && !@path.start_with?('/avatars/')
-        if /\A.*\/(?<id>\d+)/ =~ @path
+        if /\A.*\/(?<id>\d+)/.match?(@path)
           return replace_self(self.class.parse("https://derpibooru.org/#{id}"))
         end
 
@@ -41,7 +41,7 @@ module Addressable
           return replace_self(self.class.parse("http://fav.me/#{id}"))
         end
       elsif @host.end_with?('deviantart.net')
-        if /\A.*\b(?<id>d\w{6})\b/ =~ @path.split('/').last
+        if /\A.*\b(?<id>d\w{6})\b/.match?(@path.split('/').last)
           return replace_self(self.class.parse("http://fav.me/#{id}"))
         end
 
@@ -51,7 +51,7 @@ module Addressable
           json = self.class.parse("https://e621.net/post/show.json?md5=#{hash}").fetch.body
           return replace_self(self.class.parse("https://e621.net/post/show/#{JSON.parse(json)['id']}")) if json && !json.empty?
         end
-        if /\A\/post\/show\/(?<id>\d+)/ =~ @path
+        if /\A\/post\/show\/(?<id>\d+)/.match?(@path)
           return replace_self(self.class.parse("https://e621.net/post/show/#{id}"))
         end
 
@@ -83,7 +83,7 @@ module Addressable
 
       # My Little Face When
       elsif @host.end_with?('mylittlefacewhen.com')
-        if /\A\/media\/.*\/mlfw(?<id>\d+)/ =~ @path
+        if /\A\/media\/.*\/mlfw(?<id>\d+)/.match?(@path)
           return replace_self(self.class.parse("http://mylittlefacewhen.com/f/#{id}"))
         end
 
@@ -129,7 +129,7 @@ module Addressable
 
       # Russian clone sites
       elsif russia?
-        @host = 'www.furaffinity.net' if /\A\/view\/\d+/ =~ @path
+        @host = 'www.furaffinity.net' if /\A\/view\/\d+/.match?(@path)
 
       end
 
