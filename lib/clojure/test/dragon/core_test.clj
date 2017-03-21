@@ -3,6 +3,11 @@
   (:require [clojure.test :refer :all]
             [dragon.core :refer :all]))
 
+(deftest environment
+  (testing "environment map"
+    (is (= (System/getProperty "user.home") (env :user-home)))
+    (is (= (System/getenv "PATH") (env :path)))))
+
 (deftest p-p-map
   (testing "partitioned parallel map"
     (let [given (range 10000)

@@ -2,7 +2,22 @@
   (:refer-clojure)
   (:require [clojure.string :as str]))
 
-(def ^:private ^:static pattern #"\A([BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz]*[Qq][Uu]|[Yy]|[BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz]*)([AEIOUYaeiouy]\w*)\z")
+(def ^:private ^:static pattern
+  #"\A([BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz]*[Qq][Uu]|[Yy]|[BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz]*)([AEIOUYaeiouy]\w*)\z")
+
+(defn- fix
+  [s]
+  (let [t (str/lower-case (str/join "-" (str/split s #"[^\p{Alnum}]+")))]
+    (if (empty? t)
+      :-
+      (keyword t))))
+
+(defn- fix-map
+  [m]
+  (->> m
+       (filter (fn [[k v]] (not (str/includes? k "="))))
+       (map (fn [[k v]] [(fix k) v]))
+       (into {})))
 
 (defn- get-case-fix
   [w]
@@ -12,12 +27,16 @@
 (defn- latin*
   [w]
   (if (re-seq #"[A-Za-z]" w)
-    (let
-      [fix-case (get-case-fix w)]
+    (let [fix-case (get-case-fix w)]
       (-> w
           (str/replace pattern "$2$1ay")
           (fix-case)))
     w))
+
+(def env
+  (merge (sorted-map)
+         (fix-map (System/getenv))
+         (fix-map (System/getProperties))))
 
 (defn latin
   "Onvertscay ethay inputay otay Igpay Atinlay."
