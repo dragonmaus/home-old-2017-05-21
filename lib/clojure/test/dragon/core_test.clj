@@ -15,12 +15,14 @@
 (deftest pig-latin
   (testing "pig latin generator"
     (testing "properly handles basic consonants"
-      (is (= "Atinlay" (latin "Latin"))))
-    (testing "properly handles y"
-      (is (= "Ouyay" (latin "You")))
-      (is (= "Ypetay" (latin "Type"))))
+      (is (= "igpay atinlay" (latin "pig latin"))))
     (testing "properly handles qu"
-      (is (= "Ickquay" (latin "Quick")))
-      (is (= "Eaksquay" (latin "Squeak"))))
+      (is (= "ickquay eaksquay ababqay" (latin "quick squeak qabab"))))
+    (testing "properly handles y"
+      (is (= "ouryay ypetay isay yperiteay" (latin "your type is yperite"))))
+    (testing "properly handles mixed capitalisation"
+      (is (= "ellohay Ellohay ELLOHAY" (latin "hello Hello HELLO"))))
     (testing "properly handles full sentences with punctuation"
-      (is (= "Ethay ickquay ownbray oxfay umpsjay overay ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))))
+      (is (= "Ethay ickquay ownbray oxfay umpsjay overay ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))
+    (testing "property handles apostrophes"
+      (is (= "Atthay's ymay eesechay!" (latin "That's my cheese!"))))))
