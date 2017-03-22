@@ -29,6 +29,7 @@
   (if (re-seq #"[A-Za-z]" w)
     (let [fix-case (get-case-fix w)]
       (-> w
+          (str/replace #"\A([AEIOUaeiou]|[Yy][BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz])" "w$1")
           (str/replace pattern "$2$1ay")
           (fix-case)))
     w))

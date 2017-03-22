@@ -24,10 +24,12 @@
     (testing "properly handles qu"
       (is (= "ickquay eaksquay ababqay" (latin "quick squeak qabab"))))
     (testing "properly handles y"
-      (is (= "ouryay ypetay isay yperiteay" (latin "your type is yperite"))))
+      (is (= "ouryay ypetay isway yperiteway" (latin "your type is yperite"))))
+    (testing "properly handles basic vowels"
+      (is (= "eatway anway omeletteway" (latin "eat an omelette"))))
     (testing "properly handles mixed capitalisation"
       (is (= "ellohay Ellohay ELLOHAY" (latin "hello Hello HELLO"))))
     (testing "properly handles full sentences with punctuation"
-      (is (= "Ethay ickquay ownbray oxfay umpsjay overay ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))
+      (is (= "Ethay ickquay ownbray oxfay umpsjay overway ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))
     (testing "property handles apostrophes"
       (is (= "Atthay's ymay eesechay!" (latin "That's my cheese!"))))))
