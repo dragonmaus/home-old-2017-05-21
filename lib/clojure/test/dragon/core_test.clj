@@ -8,6 +8,14 @@
     (is (= (System/getProperty "user.home") (env :user-home)))
     (is (= (System/getenv "PATH") (env :path)))))
 
+(deftest kebabify
+  (testing "kebab"
+    (is (= :- (kebab "")))
+    (is (= :- (kebab nil)))
+    (is (= :foo-bar (kebab "FOO  _baR")))
+    (is (= :dragon-core-test (kebab 'dragon.core-test)))
+    (is (= :3-141592653589793 (kebab java.lang.Math/PI)))))
+
 (deftest p-p-map
   (testing "partitioned parallel map"
     (let [given (range 10000)

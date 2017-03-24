@@ -9,4 +9,4 @@
 
 (defn paste
   []
-  (:out (shell/sh "pbpaste")))
+  ((shell/sh "pbpaste") :out))
