@@ -18,5 +18,7 @@
   (require '[dragon.clipboard.txt :as internal]))
 
 (def copy internal/copy)
+(alter-meta! (var copy) (fn [_] (meta (var internal/copy))))
 
 (def paste internal/paste)
+(alter-meta! (var paste) (fn [_] (meta (var internal/paste))))
