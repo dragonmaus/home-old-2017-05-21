@@ -1,8 +1,8 @@
 (ns dragon.maths-test
   (:import [java.lang Math])
   (:refer-clojure)
-  (:require [clojure.test :refer :all]
-            [dragon.maths :refer :all]))
+  (:require (clojure [test :refer :all])
+            (dragon [maths :refer :all])))
 
 (deftest constants
   (testing "the value of constant"

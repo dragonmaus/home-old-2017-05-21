@@ -4,7 +4,7 @@
   (:refer-clojure))
 
 (def ^:dynamic *clipboard* (.. Toolkit getDefaultToolkit getSystemClipboard))
-(def ^:dynamic *data-flavor* DataFlavor/stringFlavor)
+(def ^:dynamic *data-flavor* nil)
 
 (defn copy
   [data]
@@ -15,7 +15,8 @@
 
 (defn paste
   []
-  (let [data-flavor (or (first (.getAvailableDataFlavors *clipboard*))
-                        *data-flavor*)]
+  (let [data-flavor (or *data-flavor*
+                        (first (.getAvailableDataFlavors *clipboard*))
+                        DataFlavor/stringFlavor)]
     (when (.isDataFlavorAvailable *clipboard* data-flavor)
       (.getData *clipboard* data-flavor))))

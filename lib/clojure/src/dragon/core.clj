@@ -1,19 +1,20 @@
 (ns dragon.core
   (:refer-clojure)
-  (:require [clojure.string :as str]))
+  (:require (clojure [string :as str])))
 
-(defn- get-case-fix
-  [word]
-  (some (fn [f] (when (= word (f word)) f))
-        [str/capitalize str/upper-case identity]))
+(defmacro alias!
+  "Add an alias in the current namespace to another
+  arbitrary symbol. The alias will be an exact copy
+  of the target, including all metadata."
+  [alias target]
+  `(do
+     (def ~alias ~target)
+     (alter-meta! (var ~alias) (fn [~'_] (meta (var ~target))))))
 
 (defn kebab
   [string]
   (as-> string s
-    (try
-      (name s)
-      (catch Exception _
-        (str s)))
+    (try (name s) (catch Exception _ (str s)))
     (str/split s #"[^\p{Alnum}]+")
     (str/join "-" s)
     (if (str/blank? s) "-" s)
@@ -27,6 +28,16 @@
        (map (fn [[k v]] [(kebab k) v]))
        (into {})))
 
+(def env
+  (merge (sorted-map)
+         (keybab (System/getenv))
+         (keybab (System/getProperties))))
+
+(defn- get-case-fix
+  [word]
+  (some (fn [f] (when (= word (f word)) f))
+        [str/capitalize str/upper-case identity]))
+
 (defn- latin*
   [word]
   (if (re-seq #"[A-Za-z]" word)
@@ -37,13 +48,8 @@
           (fix-case)))
     word))
 
-(def env
-  (merge (sorted-map)
-         (keybab (System/getenv))
-         (keybab (System/getProperties))))
-
 (defn latin
-  "Onvertscay ethay inputay otay Igpay Atinlay."
+  "Onvertscay ethay intputway otay Igpay Atinlay."
   [string]
   (as-> string s
     (str/split s #"\b")

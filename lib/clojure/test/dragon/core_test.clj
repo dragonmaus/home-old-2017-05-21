@@ -1,7 +1,7 @@
 (ns dragon.core-test
   (:refer-clojure)
-  (:require [clojure.test :refer :all]
-            [dragon.core :refer :all]))
+  (:require (clojure [test :refer :all])
+            (dragon [core :refer :all])))
 
 (deftest environment
   (testing "environment map"

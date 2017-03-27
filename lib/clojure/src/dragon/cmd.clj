@@ -1,13 +1,15 @@
 (ns dragon.cmd
   (:refer-clojure)
   (:require (clojure [string :as str])
-            (clojure.java [shell :refer [sh]])))
+            (clojure.java [shell :refer [sh]])
+            (dragon [core :refer [alias!]])))
 
 (defmulti ^:private cmd-fix*
   (fn [data] (class data)))
 
 (defmethod cmd-fix* :default
-  [b] b)
+  [b]
+  b)
 
 (defmethod cmd-fix* java.lang.String
   [string]
@@ -45,8 +47,5 @@
   [cmd & args]
   (cmd-print (apply cmd! cmd args)))
 
-(def ! cmd)
-(alter-meta! (var !) (fn [_] (meta (var cmd))))
-
-(def !! cmd!)
-(alter-meta! (var !!) (fn [_] (meta (var cmd!))))
+(alias! ! cmd)
+(alias! !! cmd!)

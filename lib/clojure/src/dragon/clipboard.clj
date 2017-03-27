@@ -1,7 +1,7 @@
 (ns dragon.clipboard
   (:refer-clojure)
-  (:require [clojure.string :as str]
-            [dragon.core :refer [env]]))
+  (:require (clojure [string :as str])
+            (dragon [core :refer [alias! env]])))
 
 (declare copy)
 
@@ -11,14 +11,11 @@
 
 (case (first (str/split (env :os-name) #"\s+"))
   "Windows"
-  (require '[dragon.clipboard.awt :as internal])
+  (require '(dragon.clipboard [awt :as internal]))
   "Mac"
-  (require '[dragon.clipboard.osx :as internal])
+  (require '(dragon.clipboard [osx :as internal]))
   ;default
-  (require '[dragon.clipboard.txt :as internal]))
+  (require '(dragon.clipboard [txt :as internal])))
 
-(def copy internal/copy)
-(alter-meta! (var copy) (fn [_] (meta (var internal/copy))))
-
-(def paste internal/paste)
-(alter-meta! (var paste) (fn [_] (meta (var internal/paste))))
+(alias! copy internal/copy)
+(alias! paste internal/paste)

@@ -1,6 +1,6 @@
 (ns dragon.clipboard.osx
   (:refer-clojure)
-  (:require [clojure.java.shell :as shell]))
+  (:require (clojure.java [shell :as shell])))
 
 (defn copy
   [data]
