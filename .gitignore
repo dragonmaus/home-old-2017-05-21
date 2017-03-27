@@ -43,4 +43,5 @@
 *.o
 *~
 .DS_Store
+.nrepl-*
 old
