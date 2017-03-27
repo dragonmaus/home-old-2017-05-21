@@ -1,4 +1,5 @@
 augroup filetypedetect
+  autocmd BufNewFile,BufRead *.boot setfiletype clojure
   autocmd BufNewFile,BufRead *.execline setfiletype execline
   autocmd BufNewFile,BufRead *.jsm setfiletype javascript
   autocmd BufNewFile,BufRead *.proto-js setfiletype javascript
