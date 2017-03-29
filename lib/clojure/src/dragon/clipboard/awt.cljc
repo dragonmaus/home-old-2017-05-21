@@ -1,6 +1,6 @@
 (ns dragon.clipboard.awt
   (:import [java.awt Toolkit]
-           [java.awt.datatransfer Clipboard DataFlavor StringSelection])
+           [java.awt.datatransfer DataFlavor StringSelection])
   (:refer-clojure))
 
 (def ^:dynamic *clipboard* (.. Toolkit getDefaultToolkit getSystemClipboard))

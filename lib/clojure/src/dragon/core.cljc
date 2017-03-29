@@ -7,26 +7,27 @@
   arbitrary symbol. The alias will be an exact copy
   of the target, including all metadata."
   [alias target]
-  `(do
-     (def ~alias ~target)
-     (alter-meta! (var ~alias) (fn [~'_] (meta (var ~target))))))
+  `(alter-meta! (def ~alias ~target) (fn [~'_] (meta #'~target))))
 
 (defn kebab
-  [string]
-  (as-> string s
-    (try (name s) (catch Exception _ (str s)))
-    (str/split s #"[^\p{Alnum}]+")
-    (str/join "-" s)
-    (if (str/blank? s) "-" s)
-    (str/lower-case s)
-    (keyword s)))
+  ":converts-the-input-to-a-hyphenated-lower-case-keyword"
+  [value]
+  (as-> value v
+    (if (keyword? v) (apply str (rest (str v))) (str v))
+    ;(if (instance? clojure.lang.Named v) (name v) (str v))
+    (str/split v #"[^\p{Alnum}]+")
+    (str/join "-" v)
+    (if (str/blank? v) "-" v)
+    (str/lower-case v)
+    (keyword v)))
 
 (defn- keybab
   [coll]
-  (->> coll
-       (filter (fn [[k v]] (not (str/includes? k "="))))
-       (map (fn [[k v]] [(kebab k) v]))
-       (into {})))
+  (into {}
+        (comp
+          (filter (fn [[k v]] (not (str/includes? k "="))))
+          (map (fn [[k v]] [(kebab k) v])))
+        coll))
 
 (def env
   (merge (sorted-map)

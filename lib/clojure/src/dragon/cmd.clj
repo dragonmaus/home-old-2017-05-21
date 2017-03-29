@@ -27,8 +27,8 @@
    :err (cmd-fix* err)})
 
 (defn cmd!
-  [cmd & args]
-  (cmd-fix (apply sh "cmd.exe" "/c" cmd args)))
+  [& args]
+  (cmd-fix (apply sh "cmd.exe" "/c" args)))
 
 (defn- print-maybe
   [s]
@@ -44,8 +44,32 @@
   exit)
 
 (defn cmd
-  [cmd & args]
-  (cmd-print (apply cmd! cmd args)))
+  [& args]
+  (cmd-print (apply cmd! args)))
 
-(alias! ! cmd)
-(alias! !! cmd!)
+(defn arg-parser
+  [coll args]
+  (if (empty? args)
+    coll
+    (let [arg (first args)
+          args (rest args)]
+      (case arg
+        $
+        (recur (concat coll [(str (eval (first args)))])
+               (rest args))
+        $$
+        (recur (concat coll (map eval args))
+               ())
+        ;default
+        (recur (concat coll [(if (keyword? arg)
+                               (apply str (cons \/ (rest (str arg))))
+                               (str arg))])
+               args)))))
+
+(defmacro !
+  [& args]
+  `(apply cmd (arg-parser () '~args)))
+
+(defmacro !!
+  [& args]
+  `(apply cmd! (arg-parser () '~args)))
