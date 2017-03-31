@@ -41,3 +41,11 @@
       (is (= "Ethay ickquay ownbray oxfay umpsjay overway ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))
     (testing "property handles apostrophes"
       (is (= "Atthay's ymay eesechay!" (latin "That's my cheese!"))))))
+
+(deftest queue
+  (testing "queue syntactic sugar"
+    (is (= "<<" (with-out-str (pr clojure.lang.PersistentQueue/EMPTY))))
+    (let [q (conj << 'a 'b 'c 'd)]
+      (is (= "<(a b c d)<" (with-out-str (pr q))))
+      (is (= 'a (peek q)))
+      (is (= (conj << 'b 'c 'd) (pop q))))))

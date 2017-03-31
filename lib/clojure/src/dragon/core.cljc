@@ -14,7 +14,6 @@
   [value]
   (as-> value v
     (if (keyword? v) (apply str (rest (str v))) (str v))
-    ;(if (instance? clojure.lang.Named v) (name v) (str v))
     (str/split v #"[^\p{Alnum}]+")
     (str/join "-" v)
     (if (str/blank? v) "-" v)
@@ -65,3 +64,12 @@
          (apply pmap
                 (fn [& grains] (doall (apply map f grains)))
                 (map (partial partition-all grain-size) colls))))
+
+(def << clojure.lang.PersistentQueue/EMPTY)
+
+(defmethod print-method clojure.lang.PersistentQueue
+  [q w]
+  (print-method '< w)
+  (when-let [s (seq q)]
+    (print-method s w))
+  (print-method '< w))
