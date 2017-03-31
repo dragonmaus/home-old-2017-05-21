@@ -1,36 +1,58 @@
 (ns dragon.cmd
   (:refer-clojure)
   (:require (clojure [string :as str])
-            (clojure.java [shell :refer [sh]])
-            (dragon [core :refer [alias!]])))
+            (clojure.java [shell :refer [sh]])))
 
-(defmulti ^:private cmd-fix*
-  (fn [data] (class data)))
+(defn- fix-keywords
+  [x]
+  (if (keyword? x)
+    (str \/ (name x))
+    x))
 
-(defmethod cmd-fix* :default
-  [b]
-  b)
+(defn- read-cmd-3
+  [[_ [x & y] & more]]
+  (cons
+    (cons
+      (eval x)
+      (map fix-keywords y))
+    (when (not (empty? more))
+      (apply read-cmd-3 more))))
 
-(defmethod cmd-fix* java.lang.String
-  [string]
-  (as-> string s
-    (str s \~)
-    (str/split-lines s)
-    (str/join \newline s)
-    (butlast s)
-    (str/join s)))
+(defn- read-cmd-2
+  [[args & more]]
+  (if (= '$ (first args))
+    (read-cmd-2 (cons () (cons args more)))
+    (map str (apply concat (map fix-keywords args) (read-cmd-3 more)))))
+
+(defn- read-cmd-1
+  [[args _ opts]]
+  (concat (read-cmd-2 (partition-by #{'$} args))
+          (map eval opts)))
+
+(defn- read-cmd
+  [[& args]]
+  (read-cmd-1 (partition-by #{'$$} args)))
+
+(defn- fix-lines
+  [s]
+  (->> s
+       (#(str % \~))
+       (str/split-lines)
+       (str/join \newline)
+       (butlast)
+       (str/join)))
 
 (defn- cmd-fix
   [{:keys [exit out err]}]
   {:exit exit
-   :out (cmd-fix* out)
-   :err (cmd-fix* err)})
+   :out (fix-lines out)
+   :err (fix-lines err)})
 
 (defn cmd!
   [& args]
-  (cmd-fix (apply sh "cmd.exe" "/c" args)))
+  (cmd-fix (apply sh "cmd.exe" "/c" (read-cmd args))))
 
-(defn- print-maybe
+(defn- maybe-print
   [s]
   (if (string? s)
     (when (not (str/blank? s))
@@ -39,37 +61,18 @@
 
 (defn- cmd-print
   [{:keys [exit out err]}]
-  (print-maybe out)
-  (print-maybe err)
+  (maybe-print out)
+  (maybe-print err)
   exit)
 
 (defn cmd
   [& args]
   (cmd-print (apply cmd! args)))
 
-(defn arg-parser
-  [coll args]
-  (if (empty? args)
-    coll
-    (let [arg (first args)
-          args (rest args)]
-      (case arg
-        $
-        (recur (concat coll [(str (eval (first args)))])
-               (rest args))
-        $$
-        (recur (concat coll (map eval args))
-               ())
-        ;default
-        (recur (concat coll [(if (keyword? arg)
-                               (apply str (cons \/ (rest (str arg))))
-                               (str arg))])
-               args)))))
+(defmacro !!
+  [& args]
+  `(apply cmd! '~args))
 
 (defmacro !
   [& args]
-  `(apply cmd (arg-parser () '~args)))
-
-(defmacro !!
-  [& args]
-  `(apply cmd! (arg-parser () '~args)))
+  `(apply cmd '~args))
