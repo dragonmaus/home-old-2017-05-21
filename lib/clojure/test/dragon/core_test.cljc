@@ -49,3 +49,8 @@
       (is (= "<(a b c d)<" (with-out-str (pr q))))
       (is (= 'a (peek q)))
       (is (= (conj << 'b 'c 'd) (pop q))))))
+
+(deftest rotational-cipher
+  (testing "rot13"
+    (is (= "Gur dhvpx oebja sbk whzcf bire gur ynml qbt." (rot13 "The quick brown fox jumps over the lazy dog.")))
+    (is (= "The quick brown fox jumps over the lazy dog." (rot13 (rot13 "The quick brown fox jumps over the lazy dog."))))))

@@ -73,3 +73,31 @@
   (when-let [s (seq q)]
     (print-method s w))
   (print-method '< w))
+
+(defn- wrap
+  [n min max]
+  (cond
+    (> n max)
+    (wrap (+ (- n max) (dec min)) min max)
+    (< n min)
+    (wrap (+ (- n min) (inc max)) min max)
+    true
+    n))
+
+(defn- rot13*
+  [c]
+  (let [c (int c)]
+    (char (cond
+            (and (>= c (int \A))
+                 (<= c (int \Z)))
+            (wrap (+ c 13) (int \A) (int \Z))
+            (and (>= c (int \a))
+                 (<= c (int \z)))
+            (wrap (+ c 13) (int \a) (int \z))
+            true
+            c))))
+
+(defn rot13
+  "EBG13-rapbqrf gur vachg."
+  [s]
+  (apply str (map rot13* s)))
