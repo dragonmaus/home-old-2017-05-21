@@ -1,10 +1,10 @@
 (ns dragon.maths-test
-  (:import [java.lang Math])
   (:refer-clojure)
-  (:require (clojure [test :refer :all])
-            (dragon [maths :refer :all])))
+  (:require [clojure.test :refer :all]
+            [dragon.maths :refer :all])
+  (:import java.lang.Math))
 
-(deftest constants
+(deftest constant-test
   (testing "the value of constant"
     (testing "e"
       (is (= 2.718281828459045 (double e))))
@@ -13,7 +13,7 @@
     (testing "τ"
       (is (= 6.283185307179586 (double τ))))))
 
-(deftest functions
+(deftest function-test
   (testing "the function"
     (testing "average"
       (is (= 3 (average 3)))

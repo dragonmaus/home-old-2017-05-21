@@ -1,12 +1,12 @@
 (ns dragon.clipboard.osx
   (:refer-clojure)
-  (:require (clojure.java [shell :as shell])))
+  (:require [clojure.java.shell :refer [sh]]))
 
 (defn copy
   [data]
-  (shell/sh "pbcopy" :in data)
+  (sh "pbcopy" :in data)
   nil)
 
 (defn paste
   []
-  ((shell/sh "pbpaste") :out))
+  (:out (sh "pbpaste")))

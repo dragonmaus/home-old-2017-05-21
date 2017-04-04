@@ -1,8 +1,8 @@
 (ns dragon.clipboard.txt
-  (:import [java.io File])
   (:refer-clojure)
-  (require (clojure.java [io :refer [as-file]])
-           (dragon [core :refer [env]])))
+  (:require [clojure.java.io :refer [as-file]]
+            [dragon.core :refer [env]])
+  (:import java.io.File))
 
 (def ^:dynamic *clipboard*
   (as-file (or (env :clipboard)

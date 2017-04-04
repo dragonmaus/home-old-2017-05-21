@@ -1,10 +1,18 @@
 (ns dragon.clipboard.awt
-  (:import [java.awt Toolkit]
-           [java.awt.datatransfer DataFlavor StringSelection])
-  (:refer-clojure))
+  (:refer-clojure)
+  (:import java.awt.Toolkit
+           [java.awt.datatransfer DataFlavor
+                                  StringSelection]))
 
-(def ^:dynamic *clipboard* (.. Toolkit getDefaultToolkit getSystemClipboard))
+(def ^:dynamic *clipboard* (.getSystemClipboard (Toolkit/getDefaultToolkit)))
+
 (def ^:dynamic *data-flavor* nil)
+
+(defmacro with-string-flavor
+  [& body]
+  `(let [df# DataFlavor/stringFlavor]
+     (binding [*data-flavor* df#]
+       ~@body)))
 
 (defn copy
   [data]
@@ -15,8 +23,8 @@
 
 (defn paste
   []
-  (let [data-flavor (or *data-flavor*
-                        (first (.getAvailableDataFlavors *clipboard*))
-                        DataFlavor/stringFlavor)]
-    (when (.isDataFlavorAvailable *clipboard* data-flavor)
-      (.getData *clipboard* data-flavor))))
+  (let [f (or *data-flavor*
+              (first (.getAvailableDataFlavors *clipboard*))
+              DataFlavor/stringFlavor)]
+    (when (.isDataFlavorAvailable *clipboard* f)
+      (.getData *clipboard* f))))

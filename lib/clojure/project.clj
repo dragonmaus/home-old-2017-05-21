@@ -1,5 +1,8 @@
-(defproject dragon/libs "0.1.0-SNAPSHOT"
+(defproject dragon/libs "1.0.0-SNAPSHOT"
   :description "Miscellaneous personal code"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]])
+  :license {:name "BSD 3-Clause License"
+            :url "https://opensource.org/licenses/BSD-3-Clause"
+            :distribution :manual}
+  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :aot [#"dragon\."]
+  :pom-location "target/")

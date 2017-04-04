@@ -1,48 +1,55 @@
 (ns dragon.cmd
   (:refer-clojure)
-  (:require (clojure [string :as str])
-            (clojure.java [shell :refer [sh]])))
+  (:require [clojure.string :as str]
+            [clojure.java.shell :refer [sh]]))
 
-(defn- fix-keywords
-  [x]
-  (if (keyword? x)
-    (str \/ (name x))
-    x))
+(defmulti ^:private fix-arg type)
 
-(defn- read-cmd-3
-  [[_ [x & y] & more]]
+(defmethod fix-arg clojure.lang.Keyword
+  [v]
+  (str \/ (name v)))
+
+(defmethod fix-arg :default
+  [v]
+  (str v))
+
+(defn- parse-3
+  [d [a & bs] & more]
   (cons
-    (cons
-      (eval x)
-      (map fix-keywords y))
-    (when (not (empty? more))
-      (apply read-cmd-3 more))))
+   (cons
+    (if (= '($) d)
+      (str (eval a))
+      (fix-arg a))
+    (map fix-arg bs))
+   (when-not (empty? more)
+     (apply parse-3 more))))
 
-(defn- read-cmd-2
-  [[args & more]]
-  (if (= '$ (first args))
-    (read-cmd-2 (cons () (cons args more)))
-    (map str (apply concat (map fix-keywords args) (read-cmd-3 more)))))
+(defn- parse-2
+  [& args]
+  (if-not (#{() '($)} (first args))
+    (apply parse-2 () args)
+    (flatten (apply parse-3 args))))
 
-(defn- read-cmd-1
-  [[args _ opts]]
-  (concat (read-cmd-2 (partition-by #{'$} args))
-          (map eval opts)))
+(defn- parse-1
+  ([args] (parse-1 args () ()))
+  ([args _ opts]
+   (concat (apply parse-2 (partition-by #{'$} args))
+           (map eval opts))))
 
-(defn- read-cmd
-  [[& args]]
-  (read-cmd-1 (partition-by #{'$$} args)))
+(defn- parse
+  [& args]
+  (apply parse-1 (partition-by #{'$$} args)))
 
 (defn- fix-lines
   [s]
-  (->> s
-       (#(str % \~))
-       (str/split-lines)
-       (str/join \newline)
-       (butlast)
-       (str/join)))
+  (-> s
+      (str \~)
+      (str/split-lines)
+      (->> (str/join \newline))
+      (butlast)
+      (str/join)))
 
-(defn- cmd-fix
+(defn- fix-cmd
   [{:keys [exit out err]}]
   {:exit exit
    :out (fix-lines out)
@@ -50,29 +57,29 @@
 
 (defn cmd!
   [& args]
-  (cmd-fix (apply sh "cmd.exe" "/c" (read-cmd args))))
+  (fix-cmd (apply sh "cmd.exe" "/c" (apply parse args))))
 
-(defn- maybe-print
+(defn- print-maybe
   [s]
   (if (string? s)
-    (when (not (str/blank? s))
+    (when-not (str/blank? s)
       (print s))
     (println s)))
 
-(defn- cmd-print
+(defn- print-cmd
   [{:keys [exit out err]}]
-  (maybe-print out)
-  (maybe-print err)
+  (print-maybe out)
+  (print-maybe err)
   exit)
 
 (defn cmd
   [& args]
-  (cmd-print (apply cmd! args)))
-
-(defmacro !!
-  [& args]
-  `(apply cmd! '~args))
+  (print-cmd (apply cmd! args)))
 
 (defmacro !
   [& args]
   `(apply cmd '~args))
+
+(defmacro !!
+  [& args]
+  `(apply cmd! '~args))
