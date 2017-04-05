@@ -7,6 +7,6 @@
 
 (task-options!
  pom {:project 'dragon/libs
-      :version "0.1.0-SNAPSHOT"
+      :version "1.0.0-SNAPSHOT"
       :description "Miscellaneous personal code"}
  aot {:all true})
