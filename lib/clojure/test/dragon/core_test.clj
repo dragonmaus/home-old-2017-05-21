@@ -1,8 +1,8 @@
 (ns dragon.core-test
   (:refer-clojure)
   (:require [clojure.test :refer :all]
-            [dragon.core :refer :all]
-            [dragon.maths :refer [τ]]))
+            [dragon [core :refer :all]
+                    [maths :refer [τ]]]))
 
 (deftest env-test
   (testing "getenv"

@@ -1,12 +1,12 @@
 {:repl {:dependencies [[dragon/libs "1.0.0-SNAPSHOT"]]
         :plugins [[lein-pprint "1.1.0"]]
         :repl-options {:init (do
-                              (require '[clojure.set :as set]
-                                       '[clojure.string :as str]
+                              (require '[clojure [set :as set]
+                                                 [string :as str]]
                                        'clojure.java.javadoc
-                                       '[dragon.clipboard :as clipboard]
-                                       '[dragon.core :refer :all]
-                                       '[dragon.maths :as maths])
+                                       '[dragon [clipboard :as clipboard]
+                                                [core :refer :all]
+                                                [maths :as maths]])
                               (let [fix #(str/replace
                                           %
                                           #"http://java\.sun\.com/javase/7/"
