@@ -3,7 +3,7 @@
   (:require [clojure.test :refer :all]
             [dragon.cmd :refer :all]))
 
-(deftest cmd-test
+(deftest ^:windows cmd-test
   (testing "printing command"
     (is (= "Hello!\n"
            (with-out-str (! echo Hello!)))))

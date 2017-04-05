@@ -5,4 +5,6 @@
             :distribution :manual}
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :aot [#"dragon\."]
+  :test-selectors {:default (complement :windows)
+                   :windows :windows}
   :pom-location "target/")
