@@ -5,6 +5,16 @@
             [dragon.maths :refer [τ]]))
 
 (deftest env-test
+  (testing "getenv"
+    (is (= (System/getenv) (getenv)))
+    (is (= (System/getenv "PATH") (getenv "PATH")))
+    (is (= "jumps over the lazy dog."
+           (getenv "The quick brown fox" "jumps over the lazy dog."))))
+  (testing "getprop"
+    (is (= (System/getProperties) (getprop)))
+    (is (= (System/getProperty "user.home") (getprop "user.home")))
+    (is (= "jumps over the lazy dog."
+           (getprop "The quick brown fox" "jumps over the lazy dog."))))
   (testing "environment map"
     (is (= (System/getProperty "user.home") (env :user-home)))
     (is (= (System/getenv "PATH") (env :path)))))
@@ -40,7 +50,8 @@
     (testing "properly handles mixed capitalisation"
       (is (= "ellohay Ellohay ELLOHAY" (latin "hello Hello HELLO"))))
     (testing "properly handles full sentences with punctuation"
-      (is (= "Ethay ickquay ownbray oxfay umpsjay overway ethay azylay ogday." (latin "The quick brown fox jumps over the lazy dog."))))
+      (is (= "Ethay ickquay ownbray oxfay umpsjay overway ethay azylay ogday."
+             (latin "The quick brown fox jumps over the lazy dog."))))
     (testing "property handles apostrophes"
       (is (= "Atthay's ymay eesechay!" (latin "That's my cheese!"))))))
 
@@ -54,5 +65,7 @@
 
 (deftest rot13-test
   (testing "rot13 rotational cipher"
-    (is (= "Gur dhvpx oebja sbk whzcf bire gur ynml qbt." (rot13 "The quick brown fox jumps over the lazy dog.")))
-    (is (= "The quick brown fox jumps over the lazy dog." (rot13 "Gur dhvpx oebja sbk whzcf bire gur ynml qbt.")))))
+    (is (= "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
+           (rot13 "The quick brown fox jumps over the lazy dog.")))
+    (is (= "The quick brown fox jumps over the lazy dog."
+           (rot13 "Gur dhvpx oebja sbk whzcf bire gur ynml qbt.")))))

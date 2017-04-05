@@ -8,6 +8,26 @@
   [alias target]
   `(alter-meta! (def ~alias ~target) (fn [~'_] (meta #'~target))))
 
+(defn getenv
+  ([]
+   (into (sorted-map)
+         (System/getenv)))
+  ([s]
+   (System/getenv s))
+  ([s default]
+   (or (getenv s)
+       default)))
+
+(defn getprop
+  ([]
+   (into (sorted-map)
+         (System/getProperties)))
+  ([s]
+   (System/getProperty s))
+  ([s default]
+   (or (getprop s)
+       default)))
+
 (defn kebab
   ":convert-the-input-to-a-hyphenated-lower-case-keyword"
   [value]
@@ -33,8 +53,8 @@
 
 (def env
   (merge (sorted-map)
-         (keybab (System/getenv))
-         (keybab (System/getProperties))))
+         (keybab (getenv))
+         (keybab (getprop))))
 
 (defn- get-case-fix
   [s]

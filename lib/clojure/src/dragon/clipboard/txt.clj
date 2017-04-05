@@ -1,12 +1,13 @@
 (ns dragon.clipboard.txt
   (:refer-clojure)
-  (:require [clojure.java.io :refer [as-file]]
-            [dragon.core :refer [env]])
-  (:import java.io.File))
+  (:require [clojure.java.io :refer [file]]
+            [dragon.core :refer [getenv getprop]]))
 
 (def ^:dynamic *clipboard*
-  (as-file (or (env :clipboard)
-               (str (env :user-home) "/.clipboard"))))
+  (let [path (getenv "CLIPBOARD")
+        path (or (and path (file path))
+                 (file (getprop "user.home") ".clipboard"))]
+    path))
 
 (defn copy
   [data]

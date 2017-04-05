@@ -1,9 +1,9 @@
 (ns dragon.clipboard
   (:refer-clojure)
   (:require [clojure.string :as str]
-            [dragon.core :refer [alias! env]]))
+            [dragon.core :refer [alias! getprop]]))
 
-(case (first (str/split (env :os-name) #"\s+"))
+(case (first (str/split (getprop "os.name") #"\s+"))
   "Windows" (require '[dragon.clipboard.awt :as internal])
   "Mac"     (require '[dragon.clipboard.osx :as internal])
   #_default (require '[dragon.clipboard.txt :as internal]))
