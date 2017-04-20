@@ -1,4 +1,6 @@
 AllCops:
+  Exclude:
+    - src/ext/**/*
   TargetRubyVersion: 2.4
 
 Lint/AmbiguousRegexpLiteral:
