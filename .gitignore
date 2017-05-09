@@ -30,6 +30,7 @@
 /.npm/
 /.oracle_jre_usage/
 /.rnd
+/.secret/
 /.ssh/
 /.stack/
 /.subversion/
