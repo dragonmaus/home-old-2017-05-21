@@ -54,6 +54,7 @@ backtick -n PATH
     /opt/local/sbin
     $PATH.new
     ${HOME}/bin
+    ${HOME}/sbin
     ${HOME}/.cabal/bin
     ${HOME}/.rbenv/bin
     ${HOME}/Library/Android/sdk/tools

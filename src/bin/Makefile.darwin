@@ -1,8 +1,6 @@
 SUBDIR+=	alipo\
-	aws\
 	backup-save\
 	cm\
-	derpi\
 	dns-update\
 	doss\
 	fsync\
@@ -12,8 +10,6 @@ SUBDIR+=	alipo\
 	mkdvi\
 	mklatex\
 	mktex\
-	phone\
-	pi\
 	plu\
 	pngmin\
 	qr\
