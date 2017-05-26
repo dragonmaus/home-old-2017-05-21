@@ -29,6 +29,8 @@
 /.mix/
 /.npm/
 /.oracle_jre_usage/
+/.password-store/
+/.password-store.git/
 /.rnd
 /.secret/
 /.ssh/
